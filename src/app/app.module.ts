@@ -12,6 +12,7 @@ import { ComposePageComponent } from './compose-page/compose-page.component';
 import { EmailPageComponent } from './email-page/email-page.component';
 import { LeftSidebarComponent } from './shared/components/left-sidebar/left-sidebar.component';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { MenuButtonService } from './shared/services/menu-button.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
     AppRoutingModule,
     SkyconsModule
   ],
-  providers: [],
+  providers: [MenuButtonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

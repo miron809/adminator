@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuButtonService } from '../../services/menu-button.service';
 
 @Component({
   selector: 'app-header',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  isUserDropDownShow = false;
+  isEmailDropDownShow = false;
 
-  constructor() { }
+  constructor(private menuButtonService: MenuButtonService) { }
 
   ngOnInit() {
   }
