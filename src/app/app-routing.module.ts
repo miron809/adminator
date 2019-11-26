@@ -4,6 +4,8 @@ import { MainLayoutComponent } from './shared/components/main-layout/main-layout
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { EmailPageComponent } from './email-page/email-page.component';
 import { ComposePageComponent } from './compose-page/compose-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 
 
 const routes: Routes = [
@@ -14,7 +16,9 @@ const routes: Routes = [
       {path: 'email', component: EmailPageComponent},
       {path: 'compose', component: ComposePageComponent}
     ]
-  }
+  },
+  {path: 'login', component: LoginPageComponent},
+  {path: 'sign-up', component: SignUpPageComponent}
 ];
 
 @NgModule({
