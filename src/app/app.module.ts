@@ -10,6 +10,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { ComposePageComponent } from './compose-page/compose-page.component';
 import { EmailPageComponent } from './email-page/email-page.component';
+import { LeftSidebarComponent } from './shared/components/left-sidebar/left-sidebar.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { EmailPageComponent } from './email-page/email-page.component';
     LoginPageComponent,
     SignUpPageComponent,
     ComposePageComponent,
-    EmailPageComponent
+    EmailPageComponent,
+    LeftSidebarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
