@@ -13,6 +13,7 @@ import { EmailPageComponent } from './email-page/email-page.component';
 import { LeftSidebarComponent } from './shared/components/left-sidebar/left-sidebar.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { MenuButtonService } from './shared/services/menu-button.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { MenuButtonService } from './shared/services/menu-button.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SkyconsModule
+    SkyconsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [MenuButtonService],
   bootstrap: [AppComponent]

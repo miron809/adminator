@@ -6,3 +6,17 @@
     width: 60px;
   }
 }
+
+.form-group.invalid {
+  input {
+    border-color: $danger;
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(244,67,54,.25);
+    }
+  }
+
+}
+
+.validation {
+  color: $danger;
+}
