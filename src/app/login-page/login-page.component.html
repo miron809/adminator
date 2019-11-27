@@ -29,7 +29,7 @@
         <div class="peers ai-c jc-sb fxw-nw">
           <div class="peer"></div>
           <div class="peer">
-            <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Login</button>
+            <button [disabled]="form.invalid || submitted" type="submit" class="btn btn-primary">Login</button>
           </div>
         </div>
       </div>

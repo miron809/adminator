@@ -14,6 +14,7 @@ import { LeftSidebarComponent } from './shared/components/left-sidebar/left-side
 import { HeaderComponent } from './shared/components/header/header.component';
 import { MenuButtonService } from './shared/services/menu-button.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     SkyconsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  exports: [
+    HttpClientModule
   ],
   providers: [MenuButtonService],
   bootstrap: [AppComponent]
