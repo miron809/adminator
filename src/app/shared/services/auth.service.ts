@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FbAuthResponse, User } from '../interfaces';
 import { environment } from '../../../environments/environment';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { throwError } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService) {}
 
   get token(): string {
     const expDate = new Date(localStorage.getItem('expToken'));
@@ -21,7 +25,8 @@ export class AuthService {
   login(user: User) {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
       .pipe(
-        tap(this.setToken)
+        tap(this.setToken),
+        catchError(this.handleError.bind(this))
       );
   }
 
@@ -31,6 +36,11 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.token;
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    this.toastr.error(error.error.error.message);
+    return throwError(error.error.error);
   }
 
   private setToken(response: FbAuthResponse | null) {
