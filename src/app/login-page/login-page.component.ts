@@ -25,7 +25,7 @@ export class LoginPageComponent implements OnInit {
       if (params['loginAgain']) {
         this.toastr.warning('Please, log in again');
       }
-    })
+    });
     this.buildForm();
   }
 
