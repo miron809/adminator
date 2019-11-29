@@ -22,3 +22,9 @@
 .validation {
   color: $danger;
 }
+
+a {
+  &:hover {
+    cursor: pointer;
+  }
+}

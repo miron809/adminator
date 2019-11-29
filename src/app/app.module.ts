@@ -19,6 +19,7 @@ import { LeftSidebarComponent } from './shared/components/left-sidebar/left-side
 import { HeaderComponent } from './shared/components/header/header.component';
 import { MenuButtonService } from './shared/services/menu-button.service';
 import { AuthGuard } from './shared/services/auth.guard';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthGuard } from './shared/services/auth.guard';
     ComposePageComponent,
     EmailPageComponent,
     LeftSidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,

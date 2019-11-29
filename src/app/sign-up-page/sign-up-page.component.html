@@ -43,10 +43,10 @@
       <div class="form-group">
         <div class="peers ai-c jc-sb fxw-nw">
           <div class="peer">
-            <button routerLink="/login" type="button" class="btn btn-info">I already have an account</button>
+            <button [disabled]="form.invalid || submitted" type="submit" class="btn btn-primary">Register</button>
           </div>
           <div class="peer">
-            <button [disabled]="form.invalid || submitted" type="submit" class="btn btn-primary">Register</button>
+            <button routerLink="/login" type="button" class="btn btn-info">I already have an account</button>
           </div>
         </div>
       </div>

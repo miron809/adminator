@@ -7,6 +7,7 @@ import { ComposePageComponent } from './compose-page/compose-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { AuthGuard } from './shared/services/auth.guard';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
       {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
       {path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard]},
       {path: 'email', component: EmailPageComponent, canActivate: [AuthGuard]},
-      {path: 'compose', component: ComposePageComponent, canActivate: [AuthGuard]}
+      {path: 'compose', component: ComposePageComponent, canActivate: [AuthGuard]},
+      {path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]}
     ]
   },
   {path: 'login', component: LoginPageComponent},
