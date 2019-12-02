@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FbAuthResponse, User } from '../interfaces';
 import { environment } from '../../../environments/environment';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
 
@@ -35,6 +35,13 @@ export class AuthService {
       .pipe(
         tap(this.setToken),
         catchError(this.handleError.bind(this))
+      );
+  }
+
+  getGitHubInfo(userId) {
+    return this.http.get(`https://api.github.com/users/${userId}`)
+      .pipe(
+        map((response): any => response)
       );
   }
 
