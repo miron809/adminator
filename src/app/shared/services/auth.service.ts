@@ -4,7 +4,7 @@ import { FbAuthResponse, User } from '../interfaces';
 import { environment } from '../../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

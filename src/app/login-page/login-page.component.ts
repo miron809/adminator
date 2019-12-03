@@ -4,6 +4,7 @@ import { User } from '../shared/interfaces';
 import { AuthService } from '../shared/services/auth.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login-page',
@@ -18,7 +19,8 @@ export class LoginPageComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params: Params) => {
@@ -42,6 +44,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.submitted = true;
+    this.spinner.show();
 
     const user: User = {
       email: this.form.value.email,
@@ -54,8 +57,10 @@ export class LoginPageComponent implements OnInit {
         this.form.reset();
         this.router.navigate(['/dashboard']);
         this.submitted = false;
+        this.spinner.hide();
       }, () => {
         this.submitted = false;
+        this.spinner.hide();
         }
       );
   }

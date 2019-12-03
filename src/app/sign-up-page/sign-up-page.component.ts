@@ -5,7 +5,7 @@ import { MustMatch } from '../shared/must-match.validator';
 import { User } from '../shared/interfaces';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { forkJoin } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -22,7 +22,8 @@ export class SignUpPageComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService) {
   }
 
   ngOnInit() {
@@ -46,6 +47,7 @@ export class SignUpPageComponent implements OnInit {
     }
 
     this.submitted = true;
+    this.spinner.show();
 
     const user: User = {
       userName: this.form.value.userName,
@@ -53,41 +55,56 @@ export class SignUpPageComponent implements OnInit {
       password: this.form.value.password,
       returnSecureToken: true
     };
+    this.signUp(user);
+  }
 
-    forkJoin([
-      this.authService.signUp(user),
-      this.authService.getGitHubInfo(user.userName)
-  ]).subscribe(([signUp, getGitHubInfo]) => {
-      if (signUp) {
-        this.form.reset();
-        this.router.navigate(['/dashboard']);
-        this.toastr.success('You have been registered successfully');
-        this.submitted = false;
-      }
-      if (getGitHubInfo) {
-        this.user = {
-          userName: getGitHubInfo.name,
-          avatar: getGitHubInfo.avatar_url,
-          email: user.email,
-          password: user.password,
-          userId: signUp.localId,
-        };
-        console.log(this.user);
-      }
-    },
-      () => {
-        this.submitted = false;
-      });
+  signUp(user: User) {
+    this.authService.signUp(user)
+      .subscribe((response) => {
+          this.form.reset();
+          this.submitted = false;
+          this.spinner.hide();
+          this.getGitHubUser(user, response.localId);
+        }, () => {
+          this.submitted = false;
+          this.spinner.hide();
+        }
+      );
+  }
 
-    // this.authService.signUp(user)
-    //   .subscribe((resp) => {
-    //       this.form.reset();
-    //       this.router.navigate(['/dashboard']);
-    //       this.toastr.success('You have been registered successfully');
-    //       this.submitted = false;
-    //     }, () => {
-    //       this.submitted = false;
-    //     }
-    //   );
+  getGitHubUser(user: User, userId) {
+    this.spinner.show();
+    this.authService.getGitHubInfo(user.userName)
+      .pipe()
+      .subscribe(
+        (gitHubUserInfo) => {
+          if (gitHubUserInfo) {
+            this.user = {
+              userName: gitHubUserInfo.name,
+              avatar: gitHubUserInfo.avatar_url,
+              email: user.email,
+              password: user.password,
+              userId,
+            };
+          }
+          this.registeredEnd();
+        },
+        (error) => {
+          this.user = {
+            userName: user.userName,
+            avatar: 'https://api.adorable.io/avatars/150/abott@adorable.png',
+            email: user.email,
+            password: user.password,
+            userId,
+          };
+          this.registeredEnd();
+        });
+  }
+
+  registeredEnd() {
+    this.router.navigate(['/dashboard']);
+    this.toastr.success('You have been registered successfully');
+    this.spinner.hide();
+    console.log(this.user);
   }
 }
