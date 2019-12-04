@@ -29,7 +29,7 @@ export class UserService {
       .pipe(
         map((user: User) => {
           return {
-            ...Object.values(user)
+            ...Object.values(user)[0]
           };
         })
       );

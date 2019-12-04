@@ -26,6 +26,7 @@ export class AuthService {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
       .pipe(
         tap(this.setToken),
+        tap(this.setUserId),
         catchError(this.handleError.bind(this))
       );
   }
@@ -34,12 +35,13 @@ export class AuthService {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, user)
       .pipe(
         tap(this.setToken),
+        tap(this.setUserId),
         catchError(this.handleError.bind(this))
       );
   }
 
   logout() {
-    this.setToken(null);
+    localStorage.clear();
   }
 
   isAuthenticated(): boolean {
@@ -59,6 +61,16 @@ export class AuthService {
     } else {
       localStorage.clear();
     }
+  }
+
+  private setUserId(response) {
+    if (response) {
+      localStorage.setItem('userId', response.localId);
+    }
+  }
+
+  get userId() {
+    return localStorage.getItem('userId');
   }
 
 }
