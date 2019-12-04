@@ -95,9 +95,10 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
           this.createUser(this.user);
         },
         () => {
+          const random = Math.floor(Math.random() * Math.floor(100));
           this.user = {
             userName: user.userName,
-            avatar: 'https://api.adorable.io/avatars/150/abott@adorable.png',
+            avatar: `https://api.adorable.io/avatars/150/${random}`,
             email: user.email,
             userId,
           };
