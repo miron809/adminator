@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SkyconsModule } from 'ngx-skycons';
@@ -21,6 +21,13 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { MenuButtonService } from './shared/services/menu-button.service';
 import { AuthGuard } from './shared/services/auth.guard';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { AuthInterceptor } from './shared/services/auth.interceptor';
+
+const INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: AuthInterceptor
+}
 
 @NgModule({
   declarations: [
@@ -49,7 +56,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
   exports: [
     HttpClientModule
   ],
-  providers: [AuthGuard, MenuButtonService],
+  providers: [INTERCEPTOR_PROVIDER, AuthGuard, MenuButtonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
