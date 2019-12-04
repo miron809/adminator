@@ -1,31 +1,40 @@
 <div class="row gap-20 masonry pos-r">
-  <div class="masonry-item col-md-6">
+  <div class="masonry-item col-md-7">
     <div class="bgc-white p-20 bd">
       <h6 class="c-grey-900">Profile</h6>
       <div class="mT-30">
-        <form class="container" id="needs-validation" novalidate>
+        <form [formGroup]="form" (ngSubmit)="save()" class="container">
           <div class="row">
             <div class="col-12 mb-3">
-              <img src="https://api.adorable.io/avatars/150/abott@adorable.png" alt="">
+              <img *ngIf="user" src="{{user.avatar}}" alt="">
             </div>
           </div>
           <div class="row">
-            <div class="col-12 mb-3">
+            <div class="col-md-6 mb-3">
               <label for="userName">User Name</label>
-              <input type="text" class="form-control" id="userName" placeholder="User Name">
+              <input formControlName="userName" [readonly]="!isEdit" type="text" class="form-control" id="userName" placeholder="User Name">
             </div>
-          </div>
-          <div class="row">
             <div class="col-md-6 mb-3">
               <label for="email">Email</label>
-              <input type="text" class="form-control" id="email" placeholder="Email">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="changePassword">Change Password</label>
-              <input type="password" class="form-control" id="changePassword" placeholder="New Password">
+              <input formControlName="email" [readonly]="!isEdit" type="email" class="form-control" id="email" placeholder="Email">
             </div>
           </div>
-          <button class="btn btn-primary" type="submit">Save</button>
+          <div class="row" *ngIf="isEdit">
+            <div class="col-md-4 mb-3">
+              <label for="oldPassword">Old Password</label>
+              <input formControlName="oldPassword" type="password" class="form-control" id="oldPassword" placeholder="Old Password">
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="newPassword">New Password</label>
+              <input formControlName="newPassword" type="password" class="form-control" id="newPassword" placeholder="New Password">
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="confirmPassword">Confirm Password</label>
+              <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+            </div>
+          </div>
+          <button class="btn btn-info mr-3" (click)="isEdit = !isEdit" type="submit">{{isEdit ? 'Cancel' : 'Edit'}}</button>
+          <button class="btn btn-primary" [disabled]="form.invalid" type="submit" *ngIf="isEdit">Save</button>
         </form>
       </div>
     </div>
