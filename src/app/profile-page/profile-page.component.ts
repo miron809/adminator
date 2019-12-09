@@ -47,7 +47,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   buildForm(user?: User) {
     this.form = new FormGroup({
-      userName: new FormControl(user ? user.userName : null, [Validators.required]),
+      userName: new FormControl(user ? user.displayName : null, [Validators.required]),
       email: new FormControl(user ? user.email : null, [Validators.email, Validators.required]),
       oldPassword: new FormControl(null, [Validators.required]),
       newPassword: new FormControl(null, [Validators.required]),

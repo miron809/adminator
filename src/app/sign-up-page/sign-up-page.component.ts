@@ -55,7 +55,7 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
     this.spinner.show();
 
     const user: User = {
-      userName: this.form.value.userName,
+      displayName: this.form.value.userName,
       email: this.form.value.email,
       password: this.form.value.password,
       returnSecureToken: true
@@ -80,14 +80,14 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
 
   getGitHubUser(user: User, userId) {
     this.spinner.show();
-    this.userService.getGitHubInfo(user.userName)
+    this.userService.getGitHubInfo(user.displayName)
       .pipe(takeUntil(this.unsubscriber))
       .subscribe(
         (gitHubUserInfo) => {
           if (gitHubUserInfo) {
             this.user = {
-              userName: gitHubUserInfo.name,
-              avatar: gitHubUserInfo.avatar_url,
+              displayName: gitHubUserInfo.name,
+              photoUrl: gitHubUserInfo.avatar_url,
               email: user.email,
               userId,
             };
@@ -97,8 +97,8 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
         () => {
           const random = Math.floor(Math.random() * Math.floor(100));
           this.user = {
-            userName: user.userName,
-            avatar: `https://api.adorable.io/avatars/150/${random}`,
+            displayName: user.displayName,
+            photoUrl: `https://api.adorable.io/avatars/150/${random}`,
             email: user.email,
             userId,
           };
