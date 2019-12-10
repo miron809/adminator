@@ -6,6 +6,8 @@ import { User } from '../../interfaces';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { isArray } from 'util';
 
 @Component({
   selector: 'app-header',
@@ -16,14 +18,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isUserDropDownShow = false;
   isEmailDropDownShow = false;
-  user: User;
+  user: User[] = [];
   private unsubscriber: Subject<void> = new Subject<void>();
 
   constructor(
     private menuButtonService: MenuButtonService,
     private authService: AuthService,
     private userService: UserService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getUserById();
@@ -31,18 +34,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getUserById() {
     this.spinner.show();
-    const userId = this.authService.userId;
+
+    const userId = {
+      idToken: this.authService.token
+    };
+
     this.userService.getUserById(userId)
       .pipe(takeUntil(this.unsubscriber))
-      .subscribe((user: User) => {
-        if (user) {
-          this.user = user;
+      .subscribe(
+        (response) => {
+          this.user = response.users[0];
+          this.spinner.hide(
+          );
+        },
+        () => {
           this.spinner.hide();
+          this.toastr.warning('Something went wrong, try later');
         }
-      }, () => {
-        this.spinner.hide();
-      });
+      );
   }
+
 
   ngOnDestroy(): void {
     this.unsubscriber.next();

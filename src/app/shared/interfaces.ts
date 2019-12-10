@@ -1,10 +1,10 @@
 export interface User {
-  userName?: string;
-  avatar?: string;
+  displayName?: string;
+  photoUrl?: string;
   email: string;
   password?: string;
   returnSecureToken?: boolean;
-  userId?: string;
+  idToken?: string;
 }
 
 export interface FbAuthResponse {

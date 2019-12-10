@@ -13,20 +13,10 @@ export class AuthService {
     private http: HttpClient,
     private toastr: ToastrService) {}
 
-  get token(): string {
-    const expDate = new Date(localStorage.getItem('expToken'));
-    if (new Date() > expDate) {
-      this.logout();
-      return null;
-    }
-    return localStorage.getItem('idToken');
-  }
-
   login(user: User) {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
       .pipe(
         tap(this.setToken),
-        tap(this.setUserId),
         catchError(this.handleError.bind(this))
       );
   }
@@ -35,7 +25,6 @@ export class AuthService {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, user)
       .pipe(
         tap(this.setToken),
-        tap(this.setUserId),
         catchError(this.handleError.bind(this))
       );
   }
@@ -53,7 +42,7 @@ export class AuthService {
     return throwError(error.error.error);
   }
 
-  private setToken(response: FbAuthResponse | null) {
+  setToken(response) {
     if (response) {
       const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
       localStorage.setItem('idToken', response.idToken);
@@ -63,14 +52,13 @@ export class AuthService {
     }
   }
 
-  private setUserId(response) {
-    if (response) {
-      localStorage.setItem('userId', response.localId);
+  get token(): string {
+    const expDate = new Date(localStorage.getItem('expToken'));
+    if (new Date() > expDate) {
+      this.logout();
+      return null;
     }
-  }
-
-  get userId() {
-    return localStorage.getItem('userId');
+    return localStorage.getItem('idToken');
   }
 
 }

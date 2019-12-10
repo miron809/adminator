@@ -17,21 +17,17 @@ export class UserService {
       );
   }
 
-  createUser(user: User) {
-    return this.http.post(`${environment.databaseUrl}/users/${user.userId}.json`, user)
+  updateUserProfile(user: User) {
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, user)
       .pipe(
         map((response: any) => response)
       );
   }
 
-  getUserById(userId: string) {
-    return this.http.get<User>(`${environment.databaseUrl}/users/${userId}.json`)
+  getUserById(userId) {
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.apiKey}`, userId)
       .pipe(
-        map((user: User) => {
-          return {
-            ...Object.values(user)[0]
-          };
-        })
+        map((users: any) => users)
       );
   }
 }

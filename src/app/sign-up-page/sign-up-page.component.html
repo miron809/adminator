@@ -10,7 +10,7 @@
     <h4 class="fw-300 c-grey-900 mB-40">Register</h4>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="form-group" [ngClass]="{invalid: form.get('userName').touched && form.get('userName').invalid}">
-        <label class="text-normal text-dark">Username (GitHub if you have)</label>
+        <label class="text-normal text-dark">User Name (GitHub if you have)</label>
         <input type="text" formControlName="userName" class="form-control" Placeholder='John Doe'>
         <div *ngIf="form.get('userName').touched && form.get('userName').invalid" class="validation">
           <small *ngIf="form.get('userName').errors.required">This field is required</small>

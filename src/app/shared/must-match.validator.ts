@@ -19,3 +19,20 @@ export function MustMatch(controlName: string, matchingControlName: string) {
     }
   };
 }
+
+export function MustNotMatch(oldControll: string, newControll: string) {
+  return (formGroup: FormGroup) => {
+    const oldControl = formGroup.controls[oldControll];
+    const newControl = formGroup.controls[newControll];
+
+    if (newControl.errors && !newControl.errors.mustNotMatch) {
+      return;
+    }
+
+    if (oldControl.value === newControl.value) {
+      newControl.setErrors({ mustNotMatch: true });
+    } else {
+      newControl.setErrors(null);
+    }
+  };
+}
