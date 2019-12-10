@@ -11,7 +11,7 @@
           </div>
           <div class="row">
             <div class="form-group col-md-6 mb-3" [ngClass]="{invalid: form.get('userName').touched && form.get('userName').invalid}">
-              <label class="text-normal text-dark">Username (GitHub if you have)</label>
+              <label class="text-normal text-dark">User Name</label>
               <input type="text" formControlName="userName" [readonly]="!isEdit" class="form-control" Placeholder='John Doe'>
               <div *ngIf="form.get('userName').touched && form.get('userName').invalid" class="validation">
                 <small *ngIf="form.get('userName').errors.required">This field is required</small>
@@ -53,7 +53,7 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-info mr-3" (click)="isEdit = !isEdit" type="submit">{{isEdit ? 'Cancel' : 'Edit'}}</button>
+          <button class="btn btn-info mr-3" (click)="isEdit = !isEdit" type="button">{{isEdit ? 'Cancel' : 'Edit'}}</button>
           <button class="btn btn-primary" [disabled]="form.invalid" type="submit" *ngIf="isEdit">Save</button>
         </form>
       </div>

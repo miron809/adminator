@@ -66,11 +66,11 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
   signUp(user: User) {
     this.authService.signUp(user)
       .pipe(takeUntil(this.unsubscriber))
-      .subscribe((response) => {
+      .subscribe(() => {
           this.form.reset();
           this.submitted = false;
           this.spinner.hide();
-          this.getGitHubUser(user, response.localId);
+          this.getGitHubUser(user);
         }, () => {
           this.submitted = false;
           this.spinner.hide();
@@ -78,7 +78,7 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
       );
   }
 
-  getGitHubUser(user: User, userId) {
+  getGitHubUser(user: User) {
     this.spinner.show();
     this.userService.getGitHubInfo(user.displayName)
       .pipe(takeUntil(this.unsubscriber))
@@ -89,10 +89,10 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
               displayName: gitHubUserInfo.name,
               photoUrl: gitHubUserInfo.avatar_url,
               email: user.email,
-              userId,
+              idToken: this.authService.token,
             };
           }
-          this.createUser(this.user);
+          this.updateUserProfile(this.user);
         },
         () => {
           const random = Math.floor(Math.random() * Math.floor(100));
@@ -100,25 +100,26 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
             displayName: user.displayName,
             photoUrl: `https://api.adorable.io/avatars/150/${random}`,
             email: user.email,
-            userId,
+            idToken: this.authService.token,
           };
-          this.createUser(this.user);
+          this.updateUserProfile(this.user);
         });
   }
 
-  createUser(user: User) {
-    this.spinner.show();
-    this.userService.createUser(user)
+  updateUserProfile(user: User) {
+    this.userService.updateUserProfile(user)
       .pipe(takeUntil(this.unsubscriber))
-      .subscribe(response => {
-        console.log(response);
-        this.registeredEnd();
-      },
+      .subscribe(
+        () => {
+          this.registeredEnd();
+        },
         () => {
           this.spinner.hide();
-          this.toastr.error('Sorry, something went wrong, try again later');
-        });
+          this.toastr.warning('Something went wrong, try later');
+        }
+      );
   }
+
 
   registeredEnd() {
     this.router.navigate(['/dashboard']);

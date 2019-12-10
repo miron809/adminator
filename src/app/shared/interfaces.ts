@@ -1,10 +1,9 @@
 export interface User {
   displayName?: string;
   photoUrl?: string;
-  email?: string;
+  email: string;
   password?: string;
   returnSecureToken?: boolean;
-  userId?: string;
   idToken?: string;
 }
 

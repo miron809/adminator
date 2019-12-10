@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { MustMatch, MustNotMatch } from '../shared/must-match.validator';
 
 @Component({
@@ -22,29 +23,36 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder,
     private userService: UserService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.getUserById();
     this.buildForm();
+    this.getUserById();
   }
 
   getUserById() {
     this.spinner.show();
-    const userId = this.authService.userId;
+
+    const userId = {
+      idToken: this.authService.token
+    };
+
     this.userService.getUserById(userId)
       .pipe(takeUntil(this.unsubscriber))
-      .subscribe((user: User) => {
-        if (user) {
-          this.user = user;
-          this.buildForm(user);
+      .subscribe(
+        (response) => {
+          this.user = response.users[0];
+          this.buildForm(this.user);
           this.spinner.hide();
+        },
+        () => {
+          this.spinner.hide();
+          this.toastr.warning('Something went wrong, try later');
         }
-      }, () => {
-        this.spinner.hide();
-      });
+      );
   }
 
   buildForm(user?: User) {
@@ -63,7 +71,33 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   updateUserProfile() {
-    console.log(this.form.value);
+    this.spinner.show();
+
+    const user: User = {
+      displayName: this.form.value.userName,
+      email: this.form.value.email,
+      password: this.form.value.newPassword,
+      idToken: this.authService.token,
+      returnSecureToken: true
+    };
+
+    this.userService.updateUserProfile(user)
+      .pipe(takeUntil(this.unsubscriber))
+      .subscribe(
+        (response: User) => {
+          this.authService.setToken(response);
+          this.isEdit = false;
+          this.form.get('oldPassword').reset();
+          this.form.get('newPassword').reset();
+          this.form.get('confirmPassword').reset();
+          this.spinner.hide();
+          this.toastr.success('You have successfully updated profile');
+        },
+        () => {
+          this.spinner.hide();
+          this.toastr.warning('Something went wrong, try later');
+        }
+      );
   }
 
   ngOnDestroy(): void {
