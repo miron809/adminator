@@ -6,7 +6,7 @@
         <form [formGroup]="form" (ngSubmit)="updateUserProfile()" class="container">
           <div class="row">
             <div class="col-12 mb-3">
-              <img *ngIf="user" src="{{user.photoUrl}}" alt="">
+              <img class="avatar" *ngIf="user" src="{{user.photoUrl}}" alt="">
             </div>
           </div>
           <div class="row">
