@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MustMatch, MustNotMatch } from '../shared/must-match.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
@@ -26,7 +27,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private router: Router) {
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -71,34 +74,46 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   updateUserProfile() {
+
     this.spinner.show();
 
-    const user: User = {
-      displayName: this.form.value.userName,
-      email: this.form.value.email,
-      password: this.form.value.newPassword,
-      idToken: this.authService.token,
-      returnSecureToken: true
-    };
+    if (this.authService.isAuthenticated()) {
+      const user: User = {
+        displayName: this.form.value.userName,
+        email: this.form.value.email,
+        password: this.form.value.newPassword,
+        idToken: this.authService.token,
+        returnSecureToken: true
+      };
 
-    this.userService.updateUserProfile(user)
-      .pipe(takeUntil(this.unsubscriber))
-      .subscribe(
-        (response: User) => {
-          this.authService.setToken(response);
-          this.isEdit = false;
-          this.form.get('oldPassword').reset();
-          this.form.get('newPassword').reset();
-          this.form.get('confirmPassword').reset();
-          this.spinner.hide();
-          this.toastr.success('You have successfully updated profile');
-        },
-        () => {
-          this.spinner.hide();
-          this.toastr.warning('Something went wrong, try later');
+      this.userService.updateUserProfile(user)
+        .pipe(takeUntil(this.unsubscriber))
+        .subscribe(
+          (response: User) => {
+            this.authService.setToken(response);
+            this.isEdit = false;
+            this.form.get('oldPassword').reset();
+            this.form.get('newPassword').reset();
+            this.form.get('confirmPassword').reset();
+            this.spinner.hide();
+            this.toastr.success('You have successfully updated profile');
+          },
+          () => {
+            this.spinner.hide();
+            this.toastr.warning('Something went wrong, try later');
+          }
+        );
+    } else {
+      this.spinner.hide();
+      this.authService.logout();
+      this.router.navigate(['/login'], {
+        queryParams: {
+          loginAgain: true
         }
-      );
+      });
+    }
   }
+
 
   ngOnDestroy(): void {
     this.unsubscriber.next();
