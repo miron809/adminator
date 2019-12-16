@@ -16,6 +16,12 @@
           <small *ngIf="form.get('userName').errors.required">This field is required</small>
         </div>
       </div>
+      <div class="checkbox checkbox-circle checkbox-info peers ai-c mB-15">
+        <input formControlName="checkbox" type="checkbox" id="inputCall1" name="inputCheckboxesCall" class="peer">
+        <label for="inputCall1" class=" peers peer-greed js-sb ai-c">
+          <span class="peer peer-greed">I don't have GitHub account</span>
+        </label>
+      </div>
 
       <div class="form-group" [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}">
         <label class="text-normal text-dark">Email</label>

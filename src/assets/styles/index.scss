@@ -4,3 +4,7 @@
 @import 'spec/index';
 @import 'vendor/index';
 
+
+.checkbox.checkbox-circle label::before {
+  outline: none !important;
+}

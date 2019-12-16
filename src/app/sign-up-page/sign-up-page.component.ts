@@ -40,7 +40,8 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
       userName: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      confirmPassword: new FormControl(null, [Validators.required])
+      confirmPassword: new FormControl(null, [Validators.required]),
+      checkbox: new FormControl(false)
     }, {
       validators: MustMatch('password', 'confirmPassword')
     });
@@ -67,10 +68,16 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
     this.authService.signUp(user)
       .pipe(takeUntil(this.unsubscriber))
       .subscribe(() => {
+          if (this.form.value.checkbox) {
+            this.userWithoutGitHub(user);
+          } else {
+            this.getGitHubUser(user);
+          }
+
           this.form.reset();
           this.submitted = false;
           this.spinner.hide();
-          this.getGitHubUser(user);
+
         }, () => {
           this.submitted = false;
           this.spinner.hide();
@@ -95,15 +102,19 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
           this.updateUserProfile(this.user);
         },
         () => {
-          const random = Math.floor(Math.random() * Math.floor(100));
-          this.user = {
-            displayName: user.displayName,
-            photoUrl: `https://api.adorable.io/avatars/230/${random}`,
-            email: user.email,
-            idToken: this.authService.token,
-          };
-          this.updateUserProfile(this.user);
+          this.userWithoutGitHub(user);
         });
+  }
+
+  userWithoutGitHub(user: User) {
+    const random = Math.floor(Math.random() * Math.floor(100));
+    this.user = {
+      displayName: user.displayName,
+      photoUrl: `https://api.adorable.io/avatars/230/${random}`,
+      email: user.email,
+      idToken: this.authService.token,
+    };
+    this.updateUserProfile(this.user);
   }
 
   updateUserProfile(user: User) {
