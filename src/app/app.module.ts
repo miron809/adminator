@@ -22,6 +22,7 @@ import { MenuButtonService } from './shared/services/menu-button.service';
 import { AuthGuard } from './shared/services/auth.guard';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AuthInterceptor } from './shared/services/auth.interceptor';
+import { WeatherComponent } from './widgets/weather/weather.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -40,7 +41,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     EmailPageComponent,
     LeftSidebarComponent,
     HeaderComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
