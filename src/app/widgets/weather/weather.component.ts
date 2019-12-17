@@ -43,6 +43,7 @@ export class WeatherComponent implements OnInit {
       .subscribe(
         (response) => {
           this.handleResponse(response);
+          this.form.reset();
           this.spinner.hide('weather');
         },
         (error) => {
