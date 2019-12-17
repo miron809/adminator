@@ -10,7 +10,7 @@ export class WeatherService {
   }
 
   getWeatherByCoord(lat, lon) {
-    return this.http.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&APPID=${environment.weatherApiKey}`)
+    return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&APPID=${environment.weatherApiKey}`)
       .pipe(
         map((response: any) => response)
       );

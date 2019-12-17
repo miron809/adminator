@@ -1,4 +1,4 @@
-<div class="bd bgc-white p-20">
+<div *ngIf="weatherAll && daysList" class="bd bgc-white p-20">
   <div class="layers">
     <!-- Widget Title -->
     <div class="layer w-100 mB-20">
@@ -14,7 +14,7 @@
             <div class="layer w-100">
               <div class="peers fxw-nw ai-c">
                 <div class="peer mR-20">
-                  <h3>32<sup>°F</sup></h3>
+                  <h3>{{weatherAll.list[0].main.temp | number:'1.1-1'}}<sup>°C</sup></h3>
                 </div>
                 <div class="peer">
                   <span class="weather-icon">
@@ -34,10 +34,10 @@
         <div class="peer">
           <div class="layers ai-fe">
             <div class="layer">
-              <h5 class="mB-5">Monday</h5>
+              <h5 class="mB-5">{{weatherAll.list[0].dt * 1000 | date:'EEEE'}}</h5>
             </div>
             <div class="layer">
-              <span class="fw-600 c-grey-600">Nov, 01 2017</span>
+              <span class="fw-600 c-grey-600">{{weatherAll.list[0].dt * 1000 | date:'MMM, d y'}}</span>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
               <span>Wind</span>
             </div>
             <div class="peer ta-r">
-              <span class="fw-600 c-grey-800">10km/h</span>
+              <span class="fw-600 c-grey-800">{{weatherAll.list[0].main.pressure}} m/s</span>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@
               <span>Cloudiness</span>
             </div>
             <div class="peer ta-r">
-              <span class="fw-600 c-grey-800">Scattered clouds</span>
+              <span class="fw-600 c-grey-800">{{weatherAll.list[0].weather[0].description}}</span>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@
               <span>Pressure</span>
             </div>
             <div class="peer ta-r">
-              <span class="fw-600 c-grey-800">1019 hpa</span>
+              <span class="fw-600 c-grey-800">{{weatherAll.list[0].main.pressure}} hpa</span>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@
               <span>Humidity</span>
             </div>
             <div class="peer ta-r">
-              <span class="fw-600 c-grey-800">86 %</span>
+              <span class="fw-600 c-grey-800">{{weatherAll.list[0].main.humidity}} %</span>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
               <span>Sunrise</span>
             </div>
             <div class="peer ta-r">
-              <span class="fw-600 c-grey-800">05:00 AM</span>
+              <span class="fw-600 c-grey-800">{{weatherAll.city.sunrise * 1000 | date:'mediumTime'}}</span>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
               <span>Sunset</span>
             </div>
             <div class="peer ta-r">
-              <span class="fw-600 c-grey-800">05:00 AM</span>
+              <span class="fw-600 c-grey-800">{{weatherAll.city.sunset * 1000 | date:'mediumTime'}}</span>
             </div>
           </div>
         </div>
@@ -113,42 +113,12 @@
     <!-- Week Forecast -->
     <div class="layer w-100">
       <div class="peers peers-greed ai-fs ta-c">
-        <div class="peer">
-          <h6 class="mB-0">MON</h6>
+        <div class="peer" *ngFor="let day of daysList">
+          <h6 class="mB-0">{{day.dt * 1000 | date:'EEE'}}</h6>
           <div class="weather-icon">
-            <img src="http://openweathermap.org/img/wn/01d.png" alt="">
+            <img src="http://openweathermap.org/img/wn/{{ (day.weather[0].icon).slice(0, 2) + 'd' }}.png" alt="">
           </div>
-          <span class="d-b fw-600">32<sup>°F</sup></span>
-        </div>
-        <div class="peer">
-          <h6 class="mB-0">TUE</h6>
-          <img src="http://openweathermap.org/img/wn/02d.png" alt="">
-          <span class="d-b fw-600">30<sup>°F</sup></span>
-        </div>
-        <div class="peer">
-          <h6 class="mB-0">WED</h6>
-          <img src="http://openweathermap.org/img/wn/03d.png" alt="">
-          <span class="d-b fw-600">28<sup>°F</sup></span>
-        </div>
-        <div class="peer">
-          <h6 class="mB-0">THR</h6>
-          <img src="http://openweathermap.org/img/wn/04d.png" alt="">
-          <span class="d-b fw-600">32<sup>°F</sup></span>
-        </div>
-        <div class="peer">
-          <h6 class="mB-0">FRI</h6>
-          <img src="http://openweathermap.org/img/wn/09d.png" alt="">
-          <span class="d-b fw-600">24<sup>°F</sup></span>
-        </div>
-        <div class="peer">
-          <h6 class="mB-0">SAT</h6>
-          <img src="http://openweathermap.org/img/wn/10d.png" alt="">
-          <span class="d-b fw-600">28<sup>°F</sup></span>
-        </div>
-        <div class="peer">
-          <h6 class="mB-0">SUN</h6>
-          <img src="http://openweathermap.org/img/wn/11d.png" alt="">
-          <span class="d-b fw-600">32<sup>°F</sup></span>
+          <span class="d-b fw-600">{{day.main.temp | number:'1.1-1'}}<sup>°C</sup></span>
         </div>
       </div>
     </div>
