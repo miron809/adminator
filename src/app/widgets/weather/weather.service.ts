@@ -15,4 +15,11 @@ export class WeatherService {
         map((response: any) => response)
       );
   }
+
+  getWeatherByCity(city) {
+    return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${environment.weatherApiKey}`)
+      .pipe(
+        map((response: any) => response)
+      );
+  }
 }

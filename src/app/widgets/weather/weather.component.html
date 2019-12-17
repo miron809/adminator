@@ -1,8 +1,25 @@
-<div *ngIf="weatherAll && daysList" class="bd bgc-white p-20">
-  <div class="layers">
+<div *ngIf="weatherAll && daysList; else spinner" class="bd bgc-white p-20">
+  <div class="layers align-items-stretch">
     <!-- Widget Title -->
-    <div class="layer w-100 mB-20">
-      <h6 class="lh-1">Weather</h6>
+    <div class="layer mB-20">
+
+      <div class="d-flex flex-row justify-content-between align-items-center mb-4">
+        <h6 class="lh-1 mb-0 mr-4">Weather</h6>
+
+        <div class="d-flex">
+          <span class="refresh-icon mr-3" (click)="getWeatherByCoord()">
+            <i class="fa fa-location-arrow c-blue-500"></i>
+          </span>
+          <span *ngIf="geolocate" class="refresh-icon" (click)="getWeatherByCoord()">
+            <i class="fa fa-refresh c-green-500"></i>
+          </span>
+        </div>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="getWeatherByCity(form.value.city)" class="d-flex flex-row align-items-start">
+          <input formControlName="city" class="form-control mr-2" type="text" placeholder="Type your city...">
+          <button [disabled]="form.invalid" type="submit" class="btn btn-info">Search</button>
+      </form>
     </div>
 
     <!-- Today Weather -->
@@ -20,21 +37,17 @@
                   <span class="weather-icon">
                     <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
                   </span>
-                  <!--<sc-skycons class="weather-icon" [weather]="'clear day'" [color]="'#FF6849'"></sc-skycons>-->
                 </div>
               </div>
             </div>
 
             <!-- Condition -->
-            <div class="layer w-100">
-              <span class="fw-600 c-grey-600">Partly Clouds</span>
-            </div>
           </div>
         </div>
         <div class="peer">
           <div class="layers ai-fe">
             <div class="layer">
-              <h5 class="mB-5">{{weatherAll.list[0].dt * 1000 | date:'EEEE'}}</h5>
+              <h5 class="mB-5">{{weatherAll.city.name}}, {{weatherAll.city.country}}</h5>
             </div>
             <div class="layer">
               <span class="fw-600 c-grey-600">{{weatherAll.list[0].dt * 1000 | date:'MMM, d y'}}</span>
@@ -124,3 +137,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #spinner>
+  <ngx-spinner [fullScreen]="false"></ngx-spinner>
+</ng-template>
+
+<ngx-spinner name="weather" [fullScreen]="false"></ngx-spinner>
