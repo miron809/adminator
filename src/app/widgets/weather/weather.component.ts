@@ -15,7 +15,7 @@ export class WeatherComponent implements OnInit {
   weatherAll: [] = null;
   daysList = [];
   form: FormGroup;
-  geolocate = false;
+  geolocation = false;
 
   constructor(
     private datePipe: DatePipe,
@@ -59,7 +59,7 @@ export class WeatherComponent implements OnInit {
 
     if (window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition(position => {
-        this.geolocate = true;
+        this.geolocation = true;
 
         this.weatherService.getWeatherByCoord(position.coords.latitude, position.coords.longitude)
           .pipe()

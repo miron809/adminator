@@ -23,6 +23,9 @@ import { AuthGuard } from './shared/services/auth.guard';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AuthInterceptor } from './shared/services/auth.interceptor';
 import { WeatherComponent } from './widgets/weather/weather.component';
+import { ChatComponent } from './widgets/chat/chat.component';
+import { SocketService } from './widgets/chat/shared/services/socket.service';
+import { ChatService } from './shared/services/chat.service';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -42,7 +45,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     LeftSidebarComponent,
     HeaderComponent,
     ProfilePageComponent,
-    WeatherComponent
+    WeatherComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,13 @@ const INTERCEPTOR_PROVIDER: Provider = {
   exports: [
     HttpClientModule
   ],
-  providers: [INTERCEPTOR_PROVIDER, AuthGuard, MenuButtonService],
+  providers: [
+    INTERCEPTOR_PROVIDER,
+    AuthGuard,
+    MenuButtonService,
+    SocketService,
+    ChatService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

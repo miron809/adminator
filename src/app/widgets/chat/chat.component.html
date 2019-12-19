@@ -1,0 +1,90 @@
+<div class="bd bgc-white">
+  <div class="layers">
+    <div class="layer w-100 p-20">
+      <h6 class="lh-1">Quick Chat</h6>
+    </div>
+    <div class="layer w-100">
+      <!-- Chat Box -->
+      <div class="bgc-grey-200 p-20 gapY-15">
+
+        <!-- Chat Conversation -->
+        <ng-container *ngFor="let message of messages">
+
+          <div class="peers fxw-nw" *ngIf="(message.action === undefined && message.from.id !== chatService.user.id)">
+            <div class="peer mR-20" >
+              <img class="w-2r bdrs-50p" [src]="message.from.avatar" alt="">
+            </div>
+
+            <div class="peer peer-greed">
+              <div class="layers ai-fs gapY-5">
+                <div class="layer">
+                  <div class="peers fxw-nw pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
+                    <div class="peer mR-10">
+                      <small><b>{{message.from.name}}</b></small>
+                      <br>
+                      <small><b>10:00 AM</b></small>
+                    </div>
+                    <div class="peer-greed">
+                      <span>{{message.content}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="peers fxw-nw ai-fe" *ngIf="(message.action === undefined && message.from.id === chatService.user.id)">
+            <div class="peer ord-1 mL-20">
+              <img class="w-2r bdrs-50p" [src]="message.from.avatar" alt="">
+            </div>
+            <div class="peer peer-greed ord-0">
+              <div class="layers ai-fe gapY-10">
+                <div class="layer">
+                  <div class="peers fxw-nw ai-fe pY-3 pX-10 bgc-white bdrs-2 lh-3/2">
+                    <div class="peer mL-10 ord-1">
+                      <small><b>{{message.from.name}}</b></small>
+                      <br>
+                      <small><b>10:00 AM</b></small>
+                    </div>
+                    <div class="peer-greed ord-0">
+                      <span>{{message.content}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p *ngIf="message.action === action.JOINED" class="d-f jc-c chat-notification">
+            <span> <b>{{message.from.name}}</b> joined to the conversation. </span>
+          </p>
+
+          <p *ngIf="message.action === action.RENAME" class="d-f jc-c chat-notification">
+            <span> <b>{{message.content.previousUsername}}</b> is now <b>{{message.content.username}}</b> </span>
+          </p>
+
+        </ng-container>
+
+
+
+
+
+      </div>
+
+      <!-- Chat Send -->
+      <div class="p-20 bdT bgc-white">
+        <div class="pos-r">
+          <input #inputMessage
+                 class="form-control bdrs-10em m-0"
+                 maxlength="140"
+                 placeholder="Type your message"
+                 [(ngModel)]="messageContent"
+                 (keyup.enter)="sendMessage(messageContent)">
+          <button type="button" (click)="sendMessage(inputMessage.value)" class="btn btn-primary bdrs-50p w-2r p-0 h-2r pos-a r-1 t-1">
+            <i class="fa fa-paper-plane-o"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

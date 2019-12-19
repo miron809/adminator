@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Action } from '../../../widgets/chat/shared/model/action';
+import { User } from '../../../widgets/chat/shared/model/user';
+import { ChatService } from '../../services/chat.service';
+import { SocketService } from '../../../widgets/chat/shared/services/socket.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -6,10 +10,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
+  user: User;
 
-  constructor() { }
+  constructor(
+    private chatService: ChatService,
+    private socketService: SocketService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.chatService.initModel();
+    // Using timeout due to https://github.com/angular/angular/issues/14748
+    setTimeout(() => {
+      this.chatService.initIoConnection();
+      this.chatService.sendNotification(Action.JOINED);
+    }, 0);
   }
 
 }
