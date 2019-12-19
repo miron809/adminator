@@ -4,7 +4,6 @@ import { Event } from '../../widgets/chat/shared/model/event';
 import { Action } from '../../widgets/chat/shared/model/action';
 import { SocketService } from '../../widgets/chat/shared/services/socket.service';
 import { User } from '../../widgets/chat/shared/model/user';
-import { from, Subject } from 'rxjs';
 
 const AVATAR_URL = 'https://api.adorable.io/avatars/285';
 
@@ -30,7 +29,6 @@ export class ChatService {
     this.socketService.initSocket();
 
     this.ioConnection = this.socketService.onMessage()
-      .pipe()
       .subscribe((message: Message) => {
         this.messages.push(message);
       });

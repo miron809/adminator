@@ -14,6 +14,10 @@ export class MainLayoutComponent implements OnInit {
     private chatService: ChatService) { }
 
   ngOnInit(): void {
+    this.initChat();
+  }
+
+  initChat() {
     this.chatService.initModel();
     // Using timeout due to https://github.com/angular/angular/issues/14748
     setTimeout(() => {
