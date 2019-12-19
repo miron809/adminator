@@ -35,7 +35,7 @@
                 </div>
                 <div class="peer">
                   <span class="weather-icon">
-                    <img src="http://openweathermap.org/img/wn/{{weatherAll.list[0].weather[0].icon}}.png" alt="">
+                    <img src="http://openweathermap.org/img/wn/{{ (weatherAll.list[0].weather[0].icon).slice(0, 2) + 'd' }}.png" alt="">
                   </span>
                 </div>
               </div>

@@ -25,7 +25,12 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getWeatherByCity('london');
+    if (!!localStorage.getItem('geolocation')) {
+      this.getWeatherByCoord();
+    } else {
+      this.getWeatherByCity('london');
+    }
+
     this.buildForm();
   }
 
@@ -60,6 +65,7 @@ export class WeatherComponent implements OnInit {
     if (window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition(position => {
         this.geolocation = true;
+        localStorage.setItem('geolocation', 'true');
 
         this.weatherService.getWeatherByCoord(position.coords.latitude, position.coords.longitude)
           .pipe()
