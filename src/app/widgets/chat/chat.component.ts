@@ -18,11 +18,7 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
-    this.chatService.messages$.subscribe(resp => {
-      if (resp) {
-        this.messages.push(resp);
-      }
-    });
+    this.messages = this.chatService.messageHistory;
   }
 
   sendMessage(message: string): void {

@@ -12,7 +12,7 @@ const AVATAR_URL = 'https://api.adorable.io/avatars/285';
 
 export class ChatService {
   public user: User;
-  messages$: Subject<any> = new Subject<any>();
+  messages: Message[] = [];
   ioConnection: any;
 
   constructor(private socketService: SocketService) { }
@@ -30,8 +30,9 @@ export class ChatService {
     this.socketService.initSocket();
 
     this.ioConnection = this.socketService.onMessage()
+      .pipe()
       .subscribe((message: Message) => {
-        this.messages$.next(message);
+        this.messages.push(message);
       });
 
     this.socketService.onEvent(Event.CONNECT)
@@ -43,6 +44,10 @@ export class ChatService {
       .subscribe(() => {
         console.log('disconnected');
       });
+  }
+
+  get messageHistory() {
+    return this.messages;
   }
 
   private getRandomId(): number {

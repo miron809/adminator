@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Action } from '../../../widgets/chat/shared/model/action';
 import { User } from '../../../widgets/chat/shared/model/user';
 import { ChatService } from '../../services/chat.service';
-import { SocketService } from '../../../widgets/chat/shared/services/socket.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -10,11 +9,9 @@ import { SocketService } from '../../../widgets/chat/shared/services/socket.serv
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
-  user: User;
 
   constructor(
-    private chatService: ChatService,
-    private socketService: SocketService) { }
+    private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.chatService.initModel();
