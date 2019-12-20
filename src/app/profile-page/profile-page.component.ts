@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from '../shared/interfaces';
 import { AuthService } from '../shared/services/auth.service';
 import { UserService } from '../shared/services/user.service';
-import { Subject } from 'rxjs';
+import { from, Subject } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MustMatch, MustNotMatch } from '../shared/must-match.validator';
@@ -44,10 +44,12 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     };
 
     this.userService.getUserById(userId)
-      .pipe(takeUntil(this.unsubscriber))
+      .pipe(
+        takeUntil(this.unsubscriber),
+        switchMap(response => from(response.users)))
       .subscribe(
-        (response) => {
-          this.user = response.users[0];
+        (user: User) => {
+          this.user = user;
           this.buildForm(this.user);
           this.spinner.hide();
         },

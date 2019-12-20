@@ -3,11 +3,10 @@ import { MenuButtonService } from '../../services/menu-button.service';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { from, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { isArray } from 'util';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isUserDropDownShow = false;
   isEmailDropDownShow = false;
-  user: User[] = [];
+  user: User;
   private unsubscriber: Subject<void> = new Subject<void>();
 
   constructor(
@@ -40,10 +39,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     };
 
     this.userService.getUserById(userId)
-      .pipe(takeUntil(this.unsubscriber))
+      .pipe(
+        takeUntil(this.unsubscriber),
+        switchMap(response => from(response.users)))
       .subscribe(
-        (response) => {
-          this.user = response.users[0];
+        (user: User) => {
+          this.user = user;
           this.spinner.hide(
           );
         },
