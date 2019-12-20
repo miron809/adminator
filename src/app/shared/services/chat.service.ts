@@ -16,12 +16,11 @@ export class ChatService {
 
   constructor(private socketService: SocketService) { }
 
-  public initModel(): void {
-    const randomId = this.getRandomId();
+  public initModel(user): void {
     this.user = {
-      id: randomId,
-      name: 'test',
-      avatar: `${AVATAR_URL}/${randomId}.png`
+      id: user.localId,
+      name: user.displayName,
+      avatar: user.photoUrl,
     };
   }
 
@@ -46,10 +45,6 @@ export class ChatService {
 
   get messageHistory() {
     return this.messages;
-  }
-
-  private getRandomId(): number {
-    return Math.floor(Math.random() * (1000000)) + 1;
   }
 
   public sendMessage(message: string): void {
