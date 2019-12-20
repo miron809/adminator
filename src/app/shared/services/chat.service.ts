@@ -75,5 +75,10 @@ export class ChatService {
     this.socketService.send(message);
   }
 
+  public disconnect(): void {
+    this.socketService.disconnect();
+    this.messages = [];
+  }
+
 
 }

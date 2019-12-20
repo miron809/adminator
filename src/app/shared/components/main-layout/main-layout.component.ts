@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Action } from '../../../widgets/chat/shared/model/action';
-import { User } from '../../../widgets/chat/shared/model/user';
 import { ChatService } from '../../services/chat.service';
+import { SocketService } from '../../../widgets/chat/shared/services/socket.service';
 
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private chatService: ChatService) { }
@@ -24,6 +24,10 @@ export class MainLayoutComponent implements OnInit {
       this.chatService.initIoConnection();
       this.chatService.sendNotification(Action.JOINED);
     }, 0);
+  }
+
+  ngOnDestroy(): void {
+    this.chatService.disconnect();
   }
 
 }

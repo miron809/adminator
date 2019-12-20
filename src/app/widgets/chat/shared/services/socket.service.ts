@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 import * as socketIo from 'socket.io-client';
 
-// const SERVER_URL = 'https://localhost:8082/';
 const SERVER_URL = 'https://typescript-chat-server.herokuapp.com/';
 
 @Injectable()
@@ -30,5 +29,9 @@ export class SocketService {
         return new Observable<Event>(observer => {
             this.socket.on(event, () => observer.next());
         });
+    }
+
+    public disconnect(): void {
+      this.socket.disconnect();
     }
 }
