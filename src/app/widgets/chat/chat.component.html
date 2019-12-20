@@ -22,7 +22,7 @@
                     <div class="peer mR-10">
                       <small><b>{{message.from.name}}</b></small>
                       <br>
-                      <small><b>10:00 AM</b></small>
+                      <small *ngIf="message.date"><b>{{message.date | date:'shortTime'}}</b></small>
                     </div>
                     <div class="peer-greed">
                       <span>{{message.content}}</span>
@@ -44,7 +44,7 @@
                     <div class="peer mL-10 ord-1">
                       <small><b>{{message.from.name}}</b></small>
                       <br>
-                      <small><b>10:00 AM</b></small>
+                      <small *ngIf="message.date"><b>{{message.date | date:'shortTime'}}</b></small>
                     </div>
                     <div class="peer-greed ord-0">
                       <span>{{message.content}}</span>

@@ -29,7 +29,10 @@ export class ChatService {
 
     this.ioConnection = this.socketService.onMessage()
       .subscribe((message: Message) => {
-        this.messages.push(message);
+        this.messages.push(
+          {...message,
+          date: new Date()}
+          );
       });
 
     this.socketService.onEvent(Event.CONNECT)
@@ -54,7 +57,8 @@ export class ChatService {
 
     this.socketService.send({
       from: this.user,
-      content: message
+      content: message,
+      date: new Date()
     });
   }
 
