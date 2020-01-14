@@ -13,9 +13,10 @@ export interface FbAuthResponse {
 }
 
 export interface Email {
-  from?: string;
-  date?: Date;
-  avatar?: string;
+  fromName: string;
+  fromEmail: string;
+  date: Date;
+  avatar: string;
   to: string;
   subject: string;
   text: string;
