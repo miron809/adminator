@@ -26,6 +26,7 @@ import { WeatherComponent } from './widgets/weather/weather.component';
 import { ChatComponent } from './widgets/chat/chat.component';
 import { SocketService } from './widgets/chat/shared/services/socket.service';
 import { ChatService } from './shared/services/chat.service';
+import { QuillModule } from 'ngx-quill';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -57,7 +58,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    QuillModule.forRoot()
   ],
   exports: [
     HttpClientModule

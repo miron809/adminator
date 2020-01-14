@@ -25,7 +25,9 @@
                   <small class="fw-600 c-grey-700">Visitors From USA</small>
                   <span class="pull-right c-grey-600 fsz-sm">50%</span>
                   <div class="progress mT-10">
-                    <div class="progress-bar bgc-deep-purple-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%;"> <span class="sr-only">50% Complete</span></div>
+                    <div class="progress-bar bgc-deep-purple-500" role="progressbar" aria-valuenow="50"
+                         aria-valuemin="0" aria-valuemax="100" style="width:50%;"><span
+                      class="sr-only">50% Complete</span></div>
                   </div>
                 </div>
                 <div class="layer w-100 mT-15">
@@ -33,7 +35,8 @@
                   <small class="fw-600 c-grey-700">Visitors From Europe</small>
                   <span class="pull-right c-grey-600 fsz-sm">80%</span>
                   <div class="progress mT-10">
-                    <div class="progress-bar bgc-green-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:80%;"> <span class="sr-only">80% Complete</span></div>
+                    <div class="progress-bar bgc-green-500" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                         aria-valuemax="100" style="width:80%;"><span class="sr-only">80% Complete</span></div>
                   </div>
                 </div>
                 <div class="layer w-100 mT-15">
@@ -41,7 +44,8 @@
                   <small class="fw-600 c-grey-700">Visitors From Australia</small>
                   <span class="pull-right c-grey-600 fsz-sm">40%</span>
                   <div class="progress mT-10">
-                    <div class="progress-bar bgc-light-blue-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:40%;"> <span class="sr-only">40% Complete</span></div>
+                    <div class="progress-bar bgc-light-blue-500" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                         aria-valuemax="100" style="width:40%;"><span class="sr-only">40% Complete</span></div>
                   </div>
                 </div>
                 <div class="layer w-100 mT-15">
@@ -49,7 +53,8 @@
                   <small class="fw-600 c-grey-700">Visitors From India</small>
                   <span class="pull-right c-grey-600 fsz-sm">90%</span>
                   <div class="progress mT-10">
-                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;"> <span class="sr-only">90% Complete</span></div>
+                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                         aria-valuemax="100" style="width:90%;"><span class="sr-only">90% Complete</span></div>
                   </div>
                 </div>
               </div>
@@ -82,35 +87,92 @@
     </div>
   </div>
   <div class="masonry-item col-md-6">
-    <!-- #Monthly Stats ==================== -->
+    <!-- #Chat ==================== -->
+    <app-chat></app-chat>
+  </div>
+  <div class="masonry-item col-md-6">
+    <!-- #Weather ==================== -->
+    <app-weather></app-weather>
+  </div>
+  <div class="masonry-item col-md-6">
+    <!-- #Sales Report ==================== -->
     <div class="bd bgc-white">
       <div class="layers">
-        <div class="layer w-100 pX-20 pT-20">
-          <h6 class="lh-1">Monthly Stats</h6>
-        </div>
         <div class="layer w-100 p-20">
-          <canvas id="line-chart" height="220"></canvas>
+          <h6 class="lh-1">Sales Report</h6>
         </div>
-        <div class="layer bdT p-20 w-100">
-          <div class="peers ai-c jc-c gapX-20">
-            <div class="peer">
-              <span class="fsz-def fw-600 mR-10 c-grey-800">10% <i class="fa fa-level-up c-green-500"></i></span>
-              <small class="c-grey-500 fw-600">APPL</small>
-            </div>
-            <div class="peer fw-600">
-              <span class="fsz-def fw-600 mR-10 c-grey-800">2% <i class="fa fa-level-down c-red-500"></i></span>
-              <small class="c-grey-500 fw-600">Average</small>
-            </div>
-            <div class="peer fw-600">
-              <span class="fsz-def fw-600 mR-10 c-grey-800">15% <i class="fa fa-level-up c-green-500"></i></span>
-              <small class="c-grey-500 fw-600">Sales</small>
-            </div>
-            <div class="peer fw-600">
-              <span class="fsz-def fw-600 mR-10 c-grey-800">8% <i class="fa fa-level-down c-red-500"></i></span>
-              <small class="c-grey-500 fw-600">Profit</small>
+        <div class="layer w-100">
+          <div class="bgc-light-blue-500 c-white p-20">
+            <div class="peers ai-c jc-sb gap-40">
+              <div class="peer peer-greed">
+                <h5>November 2017</h5>
+                <p class="mB-0">Sales Report</p>
+              </div>
+              <div class="peer">
+                <h3 class="text-right">$6,000</h3>
+              </div>
             </div>
           </div>
+          <div class="table-responsive p-20">
+            <table class="table">
+              <thead>
+              <tr>
+                <th class=" bdwT-0">Name</th>
+                <th class=" bdwT-0">Status</th>
+                <th class=" bdwT-0">Date</th>
+                <th class=" bdwT-0">Price</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="fw-600">Item #1 Name</td>
+                <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">Unavailable</span></td>
+                <td>Nov 18</td>
+                <td><span class="text-success">$12</span></td>
+              </tr>
+              <tr>
+                <td class="fw-600">Item #2 Name</td>
+                <td><span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c badge-pill">New</span></td>
+                <td>Nov 19</td>
+                <td><span class="text-info">$34</span></td>
+              </tr>
+              <tr>
+                <td class="fw-600">Item #3 Name</td>
+                <td><span class="badge bgc-pink-50 c-pink-700 p-10 lh-0 tt-c badge-pill">New</span></td>
+                <td>Nov 20</td>
+                <td><span class="text-danger">-$45</span></td>
+              </tr>
+              <tr>
+                <td class="fw-600">Item #4 Name</td>
+                <td><span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill">Unavailable</span></td>
+                <td>Nov 21</td>
+                <td><span class="text-success">$65</span></td>
+              </tr>
+              <tr>
+                <td class="fw-600">Item #5 Name</td>
+                <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">Used</span></td>
+                <td>Nov 22</td>
+                <td><span class="text-success">$78</span></td>
+              </tr>
+              <tr>
+                <td class="fw-600">Item #6 Name</td>
+                <td><span class="badge bgc-orange-50 c-orange-700 p-10 lh-0 tt-c badge-pill">Used</span></td>
+                <td>Nov 23</td>
+                <td><span class="text-danger">-$88</span></td>
+              </tr>
+              <tr>
+                <td class="fw-600">Item #7 Name</td>
+                <td><span class="badge bgc-yellow-50 c-yellow-700 p-10 lh-0 tt-c badge-pill">Old</span></td>
+                <td>Nov 22</td>
+                <td><span class="text-success">$56</span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+      <div class="ta-c bdT w-100 p-20">
+        <a href="#">Check all the sales</a>
       </div>
     </div>
   </div>
@@ -190,95 +252,5 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="masonry-item col-md-6">
-    <!-- #Sales Report ==================== -->
-    <div class="bd bgc-white">
-      <div class="layers">
-        <div class="layer w-100 p-20">
-          <h6 class="lh-1">Sales Report</h6>
-        </div>
-        <div class="layer w-100">
-          <div class="bgc-light-blue-500 c-white p-20">
-            <div class="peers ai-c jc-sb gap-40">
-              <div class="peer peer-greed">
-                <h5>November 2017</h5>
-                <p class="mB-0">Sales Report</p>
-              </div>
-              <div class="peer">
-                <h3 class="text-right">$6,000</h3>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive p-20">
-            <table class="table">
-              <thead>
-              <tr>
-                <th class=" bdwT-0">Name</th>
-                <th class=" bdwT-0">Status</th>
-                <th class=" bdwT-0">Date</th>
-                <th class=" bdwT-0">Price</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td class="fw-600">Item #1 Name</td>
-                <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">Unavailable</span> </td>
-                <td>Nov 18</td>
-                <td><span class="text-success">$12</span></td>
-              </tr>
-              <tr>
-                <td class="fw-600">Item #2 Name</td>
-                <td><span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c badge-pill">New</span></td>
-                <td>Nov 19</td>
-                <td><span class="text-info">$34</span></td>
-              </tr>
-              <tr>
-                <td class="fw-600">Item #3 Name</td>
-                <td><span class="badge bgc-pink-50 c-pink-700 p-10 lh-0 tt-c badge-pill">New</span></td>
-                <td>Nov 20</td>
-                <td><span class="text-danger">-$45</span></td>
-              </tr>
-              <tr>
-                <td class="fw-600">Item #4 Name</td>
-                <td><span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c badge-pill">Unavailable</span></td>
-                <td>Nov 21</td>
-                <td><span class="text-success">$65</span></td>
-              </tr>
-              <tr>
-                <td class="fw-600">Item #5 Name</td>
-                <td><span class="badge bgc-red-50 c-red-700 p-10 lh-0 tt-c badge-pill">Used</span></td>
-                <td>Nov 22</td>
-                <td><span class="text-success">$78</span></td>
-              </tr>
-              <tr>
-                <td class="fw-600">Item #6 Name</td>
-                <td><span class="badge bgc-orange-50 c-orange-700 p-10 lh-0 tt-c badge-pill">Used</span> </td>
-                <td>Nov 23</td>
-                <td><span class="text-danger">-$88</span></td>
-              </tr>
-              <tr>
-                <td class="fw-600">Item #7 Name</td>
-                <td><span class="badge bgc-yellow-50 c-yellow-700 p-10 lh-0 tt-c badge-pill">Old</span></td>
-                <td>Nov 22</td>
-                <td><span class="text-success">$56</span></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="ta-c bdT w-100 p-20">
-        <a href="#">Check all the sales</a>
-      </div>
-    </div>
-  </div>
-  <div class="masonry-item col-md-6">
-    <!-- #Weather ==================== -->
-    <app-weather></app-weather>
-  </div>
-  <div class="masonry-item col-md-6">
-    <!-- #Chat ==================== -->
-    <app-chat></app-chat>
   </div>
 </div>

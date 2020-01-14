@@ -11,3 +11,10 @@ export interface FbAuthResponse {
   idToken: string;
   expiresIn: string;
 }
+
+export interface Email {
+  from?: string;
+  to: string;
+  subject: string;
+  text: string;
+}
