@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="layer w-100 fxg-1 pos-r">
-  <div>
+  <div *ngIf="emails.length; else spinner">
     <div *ngFor="let email of emails, let i = index"
          (click)="focusEmail(email, i)"
          [class.highlight]="hightlightStatus[i]"
@@ -25,4 +25,7 @@
       </div>
     </div>
   </div>
+  <ng-template #spinner>
+    <ngx-spinner [fullScreen]="false"></ngx-spinner>
+  </ng-template>
 </div>
