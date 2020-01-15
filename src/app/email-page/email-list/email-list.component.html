@@ -5,7 +5,10 @@
 </div>
 <div class="layer w-100 fxg-1 scrollable pos-r">
   <div>
-    <div *ngFor="let email of emails" (click)="focusEmail(email)" class="email-list-item peers fxw-nw p-20 bdB bgcH-grey-100 cur-p">
+    <div *ngFor="let email of emails, let i = index"
+         (click)="focusEmail(email, i)"
+         [class.highlight]="hightlightStatus[i]"
+         class="email-list-item peers fxw-nw p-20 bdB bgcH-grey-100 cur-p">
       <div class="peer peer-greed ov-h">
         <div class="peers ai-c">
           <div class="peer peer-greed">

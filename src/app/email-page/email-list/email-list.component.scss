@@ -5,7 +5,7 @@
   .peer {
     max-height: 109px;
   }
-  &:focus {
+  &.highlight {
     background-color: #f9fafb !important;
   }
 }

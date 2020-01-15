@@ -9,9 +9,10 @@ import { EmailService } from '../../shared/services/email.service';
 })
 export class EmailListComponent implements OnInit {
 
-  @Output() onClick: EventEmitter<Email> = new EventEmitter<Email>();
+  @Output() onclick: EventEmitter<Email> = new EventEmitter<Email>();
 
   public emails: Email[] = [];
+  public hightlightStatus = [];
 
   constructor(
     private emailService: EmailService
@@ -29,7 +30,9 @@ export class EmailListComponent implements OnInit {
   }
 
   focusEmail(email, i) {
-    this.onClick.emit(email);
+    this.onclick.emit(email);
+    this.hightlightStatus = [];
+    this.hightlightStatus[i] = true;
   }
 
 }
