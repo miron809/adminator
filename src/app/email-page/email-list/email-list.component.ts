@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Email } from '../../shared/interfaces';
 import { EmailService } from '../../shared/services/email.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-email-list',
@@ -26,6 +27,9 @@ export class EmailListComponent implements OnInit {
     this.emailService.getEmails()
       .subscribe(emails => {
         this.emails = Object.values(emails);
+        this.emails.sort( (a: any, b: any) => {
+          return (Date.parse(b.date) - Date.parse(a.date));
+        });
       });
   }
 

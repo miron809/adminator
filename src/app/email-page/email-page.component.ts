@@ -1,7 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { EmailService } from '../shared/services/email.service';
-import { map } from 'rxjs/operators';
-import { isArray } from 'util';
+import { Component, OnInit } from '@angular/core';
 import { Email } from '../shared/interfaces';
 
 @Component({
