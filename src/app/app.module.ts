@@ -27,6 +27,7 @@ import { ChatComponent } from './widgets/chat/chat.component';
 import { SocketService } from './widgets/chat/shared/services/socket.service';
 import { ChatService } from './shared/services/chat.service';
 import { QuillModule } from 'ngx-quill';
+import { EmailListComponent } from './email-page/email-list/email-list.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -47,7 +48,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HeaderComponent,
     ProfilePageComponent,
     WeatherComponent,
-    ChatComponent
+    ChatComponent,
+    EmailListComponent
   ],
   imports: [
     BrowserModule,

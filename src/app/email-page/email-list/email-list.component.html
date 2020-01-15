@@ -1,0 +1,25 @@
+<div class="layer w-100">
+  <div class="bdT bdB">
+    <input type="text" class="form-control m-0 bdw-0 pY-15 pX-20" placeholder="Search...">
+  </div>
+</div>
+<div class="layer w-100 fxg-1 scrollable pos-r">
+  <div>
+    <div *ngFor="let email of emails" (click)="focusEmail(email)" class="email-list-item peers fxw-nw p-20 bdB bgcH-grey-100 cur-p">
+      <div class="peer peer-greed ov-h">
+        <div class="peers ai-c">
+          <div class="peer peer-greed">
+            <h6>{{email.fromName}}</h6>
+          </div>
+          <div class="peer">
+            <small>{{email.date | date:'short'}}</small>
+          </div>
+        </div>
+        <h5 class="fsz-def tt-c c-grey-900">{{email.subject}}</h5>
+        <div class="whs-nw w-100 ov-h tov-e d-b">
+          <quill-view-html [content]="email.text"></quill-view-html>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

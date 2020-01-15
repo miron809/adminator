@@ -10,7 +10,10 @@ export class EmailService {
 
   constructor(private http: HttpClient) {}
 
-  getAllEmails() {}
+  getEmails() {
+    return this.http.get<Email>(`${environment.databaseUrl}/emails.json`)
+      .pipe(map( (response): any => response));
+  }
 
   sendEmail(email: Email) {
     return this.http.post<Email>(`${environment.databaseUrl}/emails.json`, email)

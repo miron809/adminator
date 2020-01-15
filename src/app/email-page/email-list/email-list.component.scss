@@ -1,0 +1,11 @@
+.email-list-item {
+  max-height: 150px;
+  overflow: hidden;
+  cursor: pointer;
+  .peer {
+    max-height: 109px;
+  }
+  &:focus {
+    background-color: #f9fafb !important;
+  }
+}
