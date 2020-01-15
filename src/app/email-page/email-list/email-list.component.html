@@ -1,9 +1,9 @@
 <div class="layer w-100">
   <div class="bdT bdB">
-    <input type="text" class="form-control m-0 bdw-0 pY-15 pX-20" placeholder="Search...">
+    <input type="text" class="form-control m-0 bdw-0 pX-20" placeholder="Search...">
   </div>
 </div>
-<div class="layer w-100 fxg-1 scrollable pos-r">
+<div class="layer w-100 fxg-1 pos-r">
   <div>
     <div *ngFor="let email of emails, let i = index"
          (click)="focusEmail(email, i)"
