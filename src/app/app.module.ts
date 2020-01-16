@@ -29,6 +29,7 @@ import { ChatService } from './shared/services/chat.service';
 import { QuillModule } from 'ngx-quill';
 import { EmailListComponent } from './email-page/email-list/email-list.component';
 import { SearchPipe } from './widgets/chat/shared/search.pipe';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -63,7 +64,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    ClickOutsideModule
   ],
   exports: [
     HttpClientModule
