@@ -3,7 +3,7 @@
     <div class="email-wrapper row remain-height bgc-white ov-h">
       <div class="email-list h-100 overflow-y-auto layers">
         <div class="p-20 bgc-grey-100 layer w-100">
-          <a href="/compose" class="btn btn-danger">New Message</a>
+          <a routerLink="/compose" class="btn btn-danger">New Message</a>
         </div>
         <app-email-list (onclick)="showEmail($event)" style="width: 100%;"></app-email-list>
       </div>
