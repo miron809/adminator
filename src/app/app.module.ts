@@ -28,6 +28,7 @@ import { SocketService } from './widgets/chat/shared/services/socket.service';
 import { ChatService } from './shared/services/chat.service';
 import { QuillModule } from 'ngx-quill';
 import { EmailListComponent } from './email-page/email-list/email-list.component';
+import { SearchPipe } from './widgets/chat/shared/search.pipe';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -49,7 +50,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     ProfilePageComponent,
     WeatherComponent,
     ChatComponent,
-    EmailListComponent
+    EmailListComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

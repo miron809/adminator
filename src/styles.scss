@@ -34,3 +34,7 @@ a {
 .overflow-y-auto {
   overflow-y: auto !important;
 }
+
+.email-list-item .ql-editor > * {
+  cursor: pointer !important;
+}

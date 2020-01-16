@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Email } from '../../shared/interfaces';
 import { EmailService } from '../../shared/services/email.service';
-import { filter } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -13,6 +12,7 @@ export class EmailListComponent implements OnInit {
 
   @Output() onclick: EventEmitter<Email> = new EventEmitter<Email>();
 
+  searchStr = '';
   public emails: Email[] = [];
   public hightlightStatus = [];
 
