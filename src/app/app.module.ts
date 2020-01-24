@@ -30,6 +30,7 @@ import { QuillModule } from 'ngx-quill';
 import { EmailListComponent } from './email-page/email-list/email-list.component';
 import { SearchPipe } from './widgets/chat/shared/search.pipe';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { ComposeComponent } from './widgets/compose/compose.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -52,7 +53,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     WeatherComponent,
     ChatComponent,
     EmailListComponent,
-    SearchPipe
+    SearchPipe,
+    ComposeComponent
   ],
   imports: [
     BrowserModule,
