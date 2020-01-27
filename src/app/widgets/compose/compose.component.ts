@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-compose',
@@ -23,6 +24,7 @@ export class ComposeComponent implements OnInit, OnDestroy {
     private emailService: EmailService,
     private toastr: ToastrService,
     private userService: UserService,
+    private spinner: NgxSpinnerService,
     private authService: AuthService) { }
 
   ngOnInit() {
@@ -59,6 +61,7 @@ export class ComposeComponent implements OnInit, OnDestroy {
 
   sendEmail({value, valid}: {value: any, valid: boolean} ) {
     if (valid) {
+      this.spinner.show('compose');
       const email: Email = {
         fromName: this.user.displayName,
         fromEmail: this.user.email,
@@ -73,10 +76,12 @@ export class ComposeComponent implements OnInit, OnDestroy {
             if (response) {
               this.toastr.success('Your message has been sent successfully');
               this.form.reset();
+              this.spinner.hide('compose');
             }
           },
           (error) => {
             this.toastr.error(error.statusText);
+            this.spinner.hide('compose');
           });
     }
   }
