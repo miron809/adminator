@@ -21,8 +21,7 @@ export class VisitChartsComponent implements OnInit, OnDestroy {
   public chartLegend = false;
   public chartType: ChartType = 'polarArea';
   public chartLabels: Label[] = [];
-  public chartData: SingleDataSet = [];
-  public chartColors: any[] = [];
+  public chartData = [];
   public chartColors: any[] = [];
 
   constructor(private visitChartsService: VisitChartsService) { }
@@ -45,7 +44,6 @@ export class VisitChartsComponent implements OnInit, OnDestroy {
 
   createChart(charts) {
     this.charts = Object.values(charts)[0];
-
     const backgroundColor: any[] = [];
     const borderColor: any[] = [];
 
@@ -55,9 +53,18 @@ export class VisitChartsComponent implements OnInit, OnDestroy {
       backgroundColor.push(item.backgroundColor);
       borderColor.push(item.borderColor);
     });
-    this.chartColors.push({backgroundColor, borderColor})
+    this.chartColors.push({backgroundColor, borderColor});
 
     this.chartUpdated = true;
+  }
+
+  progressBar(value) {
+    if (this.chartData.length > 0) {
+      const sum = this.chartData.reduce((accum, current) => accum + current, 0);
+      const width = value * 100 / sum;
+      console.log(width.toString())
+      return width.toFixed(1) + '%';
+    }
   }
 
   ngOnDestroy(): void {
