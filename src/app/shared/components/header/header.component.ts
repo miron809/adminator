@@ -16,7 +16,6 @@ import { ToastrService } from 'ngx-toastr';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   isUserDropDownShow = false;
-  isEmailDropDownShow = false;
   user: User;
   private unsubscriber: Subject<void> = new Subject<void>();
 
@@ -28,12 +27,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.getUserById();
   }
 
   getUserById() {
-    this.spinner.show();
-
     const userId = {
       idToken: this.authService.token
     };
@@ -45,8 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(
         (user: User) => {
           this.user = user;
-          this.spinner.hide(
-          );
+          this.spinner.hide();
         },
         () => {
           this.spinner.hide();
@@ -58,7 +55,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   closeDropdown() {
     this.isUserDropDownShow = false;
   }
-
 
   ngOnDestroy(): void {
     this.unsubscriber.next();
