@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SkyconsModule } from 'ngx-skycons';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { QuillModule } from 'ngx-quill';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,11 +29,10 @@ import { WeatherComponent } from './widgets/weather/weather.component';
 import { ChatComponent } from './widgets/chat/chat.component';
 import { SocketService } from './widgets/chat/shared/services/socket.service';
 import { ChatService } from './shared/services/chat.service';
-import { QuillModule } from 'ngx-quill';
 import { EmailListComponent } from './email-page/email-list/email-list.component';
 import { SearchPipe } from './widgets/chat/shared/search.pipe';
-import { ClickOutsideModule } from 'ng-click-outside';
 import { ComposeComponent } from './widgets/compose/compose.component';
+import { VisitChartsComponent } from './widgets/visit-charts/visit-charts.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -54,7 +56,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     ChatComponent,
     EmailListComponent,
     SearchPipe,
-    ComposeComponent
+    ComposeComponent,
+    VisitChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     QuillModule.forRoot(),
-    ClickOutsideModule
+    ClickOutsideModule,
+    ChartsModule
   ],
   exports: [
     HttpClientModule

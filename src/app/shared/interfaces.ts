@@ -21,3 +21,10 @@ export interface Email {
   subject: string;
   text: string;
 }
+
+export interface Chart {
+  backgroundColor: string;
+  borderColor: string;
+  label: string;
+  value: number;
+}
