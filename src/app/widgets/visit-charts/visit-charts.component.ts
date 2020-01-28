@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChartType } from 'chart.js';
-import { Label, SingleDataSet } from 'ng2-charts';
+import { Label } from 'ng2-charts';
 import { VisitChartsService } from './visit-charts.service';
 import { Chart } from '../../shared/interfaces';
 import { Subject } from 'rxjs';
