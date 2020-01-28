@@ -5,11 +5,22 @@ import { VisitChartsService } from './visit-charts.service';
 import { Chart } from '../../shared/interfaces';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-visit-charts',
   templateUrl: './visit-charts.component.html',
-  styleUrls: ['./visit-charts.component.scss']
+  styleUrls: ['./visit-charts.component.scss'],
+  animations: [
+    trigger('progressbar', [
+      transition(':enter', [
+        animate('2s', keyframes([
+          style({width: '0'}),
+          style({width: '{{width}}'}),
+        ]))
+      ]),
+    ])
+  ]
 })
 export class VisitChartsComponent implements OnInit, OnDestroy {
 
@@ -43,7 +54,9 @@ export class VisitChartsComponent implements OnInit, OnDestroy {
   }
 
   createChart(charts) {
-    this.charts = Object.values(charts)[0];
+    const chartsTemp: any = Object.values(charts)[0];
+    this.charts = [...chartsTemp];
+
     const backgroundColor: any[] = [];
     const borderColor: any[] = [];
 
@@ -62,7 +75,6 @@ export class VisitChartsComponent implements OnInit, OnDestroy {
     if (this.chartData.length > 0) {
       const sum = this.chartData.reduce((accum, current) => accum + current, 0);
       const width = value * 100 / sum;
-      console.log(width.toString())
       return width.toFixed(1) + '%';
     }
   }
