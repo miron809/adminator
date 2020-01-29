@@ -2,11 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { ToDo } from '../../shared/interfaces';
 import { FormControl, FormGroup } from '@angular/forms';
 import { WhitespaceValidator } from '../../shared/whitespace.validator';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
+  animations: [
+    trigger('todo', [
+      transition(':enter', [
+        animate('1s', keyframes([
+          style({
+            transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)',
+            opacity: '0'}),
+          style({
+            transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)',
+            opacity: '.5'}),
+          style({
+            transform: 'perspective(400px) rotate3d(1, 0, 0, 10deg)',
+            opacity: '1'}),
+          style({
+            transform: 'perspective(400px) rotate3d(1, 0, 0, -5deg)'}),
+          style({
+            transform: 'perspective(400px)'}),
+        ])),
+      ]),
+
+    ])
+  ]
 })
 export class TodoListComponent implements OnInit {
 
@@ -76,7 +99,6 @@ export class TodoListComponent implements OnInit {
     this.toDoList.find((todo: ToDo) => {
       if (todo.id === id) {
         todo.isDone = !todo.isDone;
-        console.log(todo)
       }
     });
   }
