@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { WhitespaceValidator } from '../../shared/whitespace.validator';
 
 @Component({
   selector: 'app-weather',
@@ -36,7 +37,7 @@ export class WeatherComponent implements OnInit {
 
   buildForm() {
     this.form = new FormGroup({
-      city: new FormControl(null, [Validators.required])
+      city: new FormControl(null, WhitespaceValidator)
     });
   }
 
