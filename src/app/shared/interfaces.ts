@@ -28,3 +28,9 @@ export interface Chart {
   label: string;
   value: number;
 }
+
+export interface ToDo {
+  id: number;
+  text: string;
+  isDone: boolean;
+}

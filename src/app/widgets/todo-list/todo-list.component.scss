@@ -8,7 +8,10 @@ li {
   .actions {
     visibility: hidden;
     opacity: 0;
-    transition: all .3s;
+    transition: all .1s;
+    span {
+      cursor: pointer;
+    }
   }
   &:hover .actions {
     visibility: visible;
