@@ -33,6 +33,7 @@ import { EmailListComponent } from './email-page/email-list/email-list.component
 import { SearchPipe } from './widgets/chat/shared/search.pipe';
 import { ComposeComponent } from './widgets/compose/compose.component';
 import { VisitChartsComponent } from './widgets/visit-charts/visit-charts.component';
+import { TodoListComponent } from './widgets/todo-list/todo-list.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -57,7 +58,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     EmailListComponent,
     SearchPipe,
     ComposeComponent,
-    VisitChartsComponent
+    VisitChartsComponent,
+    TodoListComponent
   ],
   imports: [
     BrowserModule,

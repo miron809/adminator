@@ -1,0 +1,53 @@
+<div class="bd bgc-white p-20">
+  <div class="layers">
+    <div class="layer w-100 mB-10">
+      <h6 class="lh-1">Todo List</h6>
+    </div>
+    <div class="layer w-100">
+      <ul class="list-task list-group" data-role="tasklist">
+        <li class="list-group-item bdw-0" data-role="task">
+          <div class="checkbox checkbox-circle checkbox-info peers ai-c">
+            <input type="checkbox" id="inputCall2" name="inputCheckboxesCall" class="peer">
+            <label for="inputCall2" class=" peers peer-greed js-sb ai-c">
+              <span class="peer peer-greed">Book Boss Flight</span>
+              <div class="peers actions mR-15">
+                <div class="peer">
+                  <a href="" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
+                    <i class="ti-pencil"></i>
+                  </a></div>
+                <div class="peer">
+                  <a href="" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
+                    <i class="ti-trash"></i>
+                  </a>
+                </div>
+              </div>
+            </label>
+          </div>
+        </li>
+        <li class="list-group-item bdw-0" data-role="task">
+          <div class="checkbox checkbox-circle checkbox-info peers ai-c">
+            <input type="checkbox" id="inputCall3" name="inputCheckboxesCall" class="peer">
+            <label for="inputCall3" class=" peers peer-greed js-sb ai-c">
+              <span class="peer peer-greed">Book Boss Flight</span>
+              <div class="peers actions mR-15">
+                <div class="peer">
+                  <a href="" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
+                    <i class="ti-pencil"></i>
+                  </a></div>
+                <div class="peer">
+                  <a href="" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
+                    <i class="ti-trash"></i>
+                  </a>
+                </div>
+              </div>
+            </label>
+          </div>
+        </li>
+      </ul>
+      <form [formGroup]="form" (ngSubmit)="addTodo(form.value.todo)" class="d-flex mt-2 flex-row align-items-start">
+        <input formControlName="todo" class="form-control mr-2" type="text" placeholder="what else?">
+        <button [disabled]="form.invalid" type="submit" class="btn btn-info">Add</button>
+      </form>
+    </div>
+  </div>
+</div>

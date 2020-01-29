@@ -1,0 +1,17 @@
+.list-task {
+  max-height: 265px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+li {
+  .actions {
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s;
+  }
+  &:hover .actions {
+    visibility: visible;
+    opacity: 1;
+  }
+}
