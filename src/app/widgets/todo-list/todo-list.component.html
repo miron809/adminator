@@ -6,8 +6,8 @@
     <div class="layer w-100">
       <ul class="list-task list-group" data-role="tasklist">
         <li *ngFor="let toDo of toDoList" class="list-group-item bdw-0" data-role="task">
-          <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-            <input type="checkbox" id="inputCall{{toDo.id}}" name="inputCheckboxesCall" class="peer">
+          <div [ngClass]="{'is-done': toDo.isDone}" class="checkbox checkbox-circle checkbox-info peers ai-c">
+            <input (change)="changeStatus(toDo.id)" type="checkbox" [checked]="toDo.isDone" id="inputCall{{toDo.id}}" name="inputCheckboxesCall" class="peer">
             <label for="inputCall{{toDo.id}}" class=" peers peer-greed js-sb ai-c">
               <span class="peer peer-greed">{{toDo.text}}</span>
             </label>
@@ -28,7 +28,7 @@
       </ul>
       <form [formGroup]="form" (ngSubmit)="addToDo()" class="d-flex mt-2 flex-row align-items-start">
         <input formControlName="toDo" class="form-control mr-2" type="text" placeholder="what else?">
-        <button [disabled]="form.invalid" type="submit" class="btn btn-success">Add</button>
+        <button [disabled]="form.invalid" type="submit" class="btn btn-success">{{isEdit ? 'Save' : 'Add new'}}</button>
       </form>
     </div>
   </div>

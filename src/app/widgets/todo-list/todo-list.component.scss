@@ -4,6 +4,10 @@
   overflow-y: auto;
 }
 
+.is-done {
+  text-decoration: line-through;
+}
+
 li {
   display: flex;
   justify-content: space-around;
@@ -12,6 +16,10 @@ li {
     flex-grow: 1;
     label {
       cursor: pointer !important;
+      margin-left: 13px;
+    }
+    input {
+      display: none;
     }
   }
   .actions {

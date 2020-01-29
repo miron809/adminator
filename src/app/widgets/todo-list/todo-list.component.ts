@@ -12,8 +12,8 @@ export class TodoListComponent implements OnInit {
 
   toDoList: ToDo[] = [
     {id: 0, isDone: false, text: 'first todo'},
-    {id: 1, isDone: false, text: 'second todo'},
-    {id: 2, isDone: true, text: 'third todo'},
+    {id: 1, isDone: true, text: 'second todo'},
+    {id: 2, isDone: false, text: 'third todo'},
   ];
 
   form: FormGroup;
@@ -25,6 +25,7 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    console.log(this.toDoList)
   }
 
   buildForm(data?: ToDo) {
@@ -37,13 +38,10 @@ export class TodoListComponent implements OnInit {
     let toDo: ToDo;
 
     if (this.isEdit) {
-      this.toDoList.filter((todo: ToDo, index) => {
+      this.toDoList.find((todo: ToDo) => {
         if (todo.id === this.toDoEditing.id) {
-          this.toDoList[index] = {
-            id: todo.id,
-            isDone: false,
-            text: this.form.value.toDo
-          };
+          todo.isDone = false;
+          todo.text = this.form.value.toDo;
         }
       });
       this.isEdit = false;
@@ -72,5 +70,14 @@ export class TodoListComponent implements OnInit {
 
   removeToDo(id) {
     this.toDoList = this.toDoList.filter(todo => todo.id !== id);
+  }
+
+  changeStatus(id) {
+    this.toDoList.find((todo: ToDo) => {
+      if (todo.id === id) {
+        todo.isDone = !todo.isDone;
+        console.log(todo)
+      }
+    });
   }
 }
