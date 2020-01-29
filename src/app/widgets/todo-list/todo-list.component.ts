@@ -48,7 +48,6 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    console.log(this.toDoList)
   }
 
   buildForm(data?: ToDo) {
@@ -81,8 +80,11 @@ export class TodoListComponent implements OnInit {
   }
 
   highestId() {
-    const idArr = this.toDoList.sort((a, b) => b.id - a.id);
-    return idArr[0].id + 1;
+    if (this.toDoList.length > 0) {
+      const idArr = this.toDoList.sort((a, b) => b.id - a.id);
+      return idArr[0].id + 1;
+    }
+    return 0;
   }
 
   editToDo(id) {
