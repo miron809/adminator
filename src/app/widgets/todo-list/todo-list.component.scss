@@ -5,6 +5,15 @@
 }
 
 li {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .checkbox {
+    flex-grow: 1;
+    label {
+      cursor: pointer !important;
+    }
+  }
   .actions {
     visibility: hidden;
     opacity: 0;

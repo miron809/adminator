@@ -10,25 +10,25 @@
             <input type="checkbox" id="inputCall{{toDo.id}}" name="inputCheckboxesCall" class="peer">
             <label for="inputCall{{toDo.id}}" class=" peers peer-greed js-sb ai-c">
               <span class="peer peer-greed">{{toDo.text}}</span>
-              <div class="peers actions mR-15">
-                <div class="peer">
+            </label>
+          </div>
+          <div class="peers actions mR-15">
+            <div class="peer">
                   <span (click)="editToDo(toDo.id)" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
                     <i class="ti-pencil"></i>
                   </span>
-                </div>
-                <div class="peer">
+            </div>
+            <div class="peer">
                   <span (click)="removeToDo(toDo.id)" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
                     <i class="ti-trash"></i>
                   </span>
-                </div>
-              </div>
-            </label>
+            </div>
           </div>
         </li>
       </ul>
       <form [formGroup]="form" (ngSubmit)="addToDo()" class="d-flex mt-2 flex-row align-items-start">
         <input formControlName="toDo" class="form-control mr-2" type="text" placeholder="what else?">
-        <button [disabled]="!form.value.toDo" type="submit" class="btn btn-success">Add</button>
+        <button [disabled]="form.invalid" type="submit" class="btn btn-success">Add</button>
       </form>
     </div>
   </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToDo } from '../../shared/interfaces';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { WhitespaceValidator } from '../../shared/whitespace.validator';
 
 @Component({
   selector: 'app-todo-list',
@@ -29,7 +29,7 @@ export class TodoListComponent implements OnInit {
 
   buildForm(data?: ToDo) {
     this.form = new FormGroup({
-      toDo: new FormControl(data ? data.text : null)
+      toDo: new FormControl(data ? data.text : null, WhitespaceValidator)
     });
   }
 
