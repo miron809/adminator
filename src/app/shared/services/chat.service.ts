@@ -5,8 +5,6 @@ import { Action } from '../../widgets/chat/shared/model/action';
 import { SocketService } from '../../widgets/chat/shared/services/socket.service';
 import { User } from '../../widgets/chat/shared/model/user';
 
-const AVATAR_URL = 'https://api.adorable.io/avatars/285';
-
 @Injectable()
 
 export class ChatService {
@@ -68,7 +66,7 @@ export class ChatService {
     if (action === Action.JOINED) {
       message = {
         from: this.user,
-        action: action
+        action
       };
     }
     this.socketService.send(message);
@@ -78,6 +76,4 @@ export class ChatService {
     this.socketService.disconnect();
     this.messages = [];
   }
-
-
 }

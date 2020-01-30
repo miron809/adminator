@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 
 import * as socketIo from 'socket.io-client';
 
-// const SERVER_URL = 'https://typescript-chat-server.herokuapp.com/';
-const SERVER_URL = 'https://test.com/';
+const SERVER_URL = 'https://typescript-chat-server.herokuapp.com/';
 
 @Injectable()
 export class SocketService {
