@@ -4,22 +4,22 @@
       <h6 class="lh-1">Todo List</h6>
     </div>
     <div class="layer w-100">
-      <ul *ngIf="toDoList.length; else empty" class="list-task list-group" data-role="tasklist">
-        <li *ngFor="let toDo of toDoList" class="list-group-item bdw-0" data-role="task">
-          <div [ngClass]="{'is-done': toDo.isDone}" class="checkbox checkbox-circle checkbox-info peers ai-c">
-            <input (change)="changeStatus(toDo.id)" type="checkbox" [checked]="toDo.isDone" id="inputCall{{toDo.id}}" name="inputCheckboxesCall" class="peer">
-            <label for="inputCall{{toDo.id}}" class=" peers peer-greed js-sb ai-c">
-              <span class="peer peer-greed">{{toDo.text}}</span>
+      <ul *ngIf="todoList.length; else empty" class="list-task list-group" data-role="tasklist">
+        <li *ngFor="let todo of todoList" class="list-group-item bdw-0" data-role="task">
+          <div [ngClass]="{'is-done': todo.isDone}" class="checkbox checkbox-circle checkbox-info peers ai-c">
+            <input (change)="changeStatus(todo.id)" type="checkbox" [checked]="todo.isDone" id="inputCall{{todo.id}}" name="inputCheckboxesCall" class="peer">
+            <label for="inputCall{{todo.id}}" class=" peers peer-greed js-sb ai-c">
+              <span class="peer peer-greed">{{todo.text}}</span>
             </label>
           </div>
           <div class="peers actions mR-15">
             <div class="peer">
-                  <span (click)="editToDo(toDo.id)" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
+                  <span (click)="editToDo(todo)" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
                     <i class="ti-pencil"></i>
                   </span>
             </div>
             <div class="peer">
-                  <span (click)="removeToDo(toDo.id)" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
+                  <span (click)="removeToDo(todo.id)" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
                     <i class="ti-trash"></i>
                   </span>
             </div>
@@ -29,10 +29,12 @@
       <ng-template #empty>
         <h4 class="mb-4 mt-2 text-center">You don't have any tasks, you can add one using the form below</h4>
       </ng-template>
-      <form [formGroup]="form" (ngSubmit)="addToDo()" class="d-flex mt-2 flex-row align-items-start">
-        <input formControlName="toDo" class="form-control mr-2" type="text" placeholder="what else?">
+      <form [formGroup]="form" (ngSubmit)="submit()" class="d-flex mt-2 flex-row align-items-start">
+        <input formControlName="todo" class="form-control mr-2" type="text" placeholder="what else?">
         <button [disabled]="form.invalid" type="submit" class="btn btn-success">{{isEdit ? 'Save' : 'Add new'}}</button>
       </form>
     </div>
   </div>
 </div>
+
+<ngx-spinner name="todoList" [fullScreen]="false"></ngx-spinner>

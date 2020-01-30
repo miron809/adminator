@@ -1,107 +1,122 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToDo } from '../../shared/interfaces';
 import { FormControl, FormGroup } from '@angular/forms';
 import { WhitespaceValidator } from '../../shared/whitespace.validator';
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import { TodoListService } from './todo-list.service';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
-  // animations: [
-  //   trigger('todo', [
-  //     transition(':enter', [
-  //       animate('1s', keyframes([
-  //         style({
-  //           transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)',
-  //           opacity: '0'}),
-  //         style({
-  //           transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)',
-  //           opacity: '.5'}),
-  //         style({
-  //           transform: 'perspective(400px) rotate3d(1, 0, 0, 10deg)',
-  //           opacity: '1'}),
-  //         style({
-  //           transform: 'perspective(400px) rotate3d(1, 0, 0, -5deg)'}),
-  //         style({
-  //           transform: 'perspective(400px)'}),
-  //       ])),
-  //     ]),
-  //
-  //   ])
-  // ]
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, OnDestroy {
 
-  toDoList: ToDo[] = [
-    {id: 0, isDone: false, text: 'first todo'},
-    {id: 1, isDone: true, text: 'second todo'},
-    {id: 2, isDone: false, text: 'third todo'},
-  ];
+  todoList: ToDo[] = [];
 
   form: FormGroup;
   isEdit = false;
   toDoEditing: ToDo;
 
-  constructor() {
+  constructor(private todoListService: TodoListService,
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService) {
   }
 
   ngOnInit() {
+    this.spinner.show('todoList');
+    this.getAllToDo();
     this.buildForm();
   }
 
   buildForm(data?: ToDo) {
     this.form = new FormGroup({
-      toDo: new FormControl(data ? data.text : null, WhitespaceValidator)
+      todo: new FormControl(data ? data.text : null, WhitespaceValidator)
     });
   }
 
-  addToDo() {
-    let toDo: ToDo;
+  getAllToDo() {
+    this.todoListService.getAll()
+      .pipe(untilDestroyed(this))
+      .subscribe((todoList: ToDo[]) => {
+        this.todoList = todoList;
+        this.spinner.hide('todoList');
+      }, (error) => this.hideSpinner(error));
+  }
 
-    if (this.isEdit) {
-      this.toDoList.find((todo: ToDo) => {
-        if (todo.id === this.toDoEditing.id) {
-          todo.isDone = false;
-          todo.text = this.form.value.toDo;
-        }
-      });
-      this.isEdit = false;
-      this.toDoEditing = null;
-    } else {
-      toDo = {
-        id: this.highestId(),
-        isDone: false,
-        text: this.form.value.toDo
-      };
-      this.toDoList.unshift(toDo);
-    }
+  submit() {
+    this.spinner.show('todoList');
+    this.isEdit ? this.updateToDo() : this.addToDo();
     this.form.reset();
   }
 
-  highestId() {
-    if (this.toDoList.length > 0) {
-      const idArr = this.toDoList.sort((a, b) => b.id - a.id);
-      return idArr[0].id + 1;
-    }
-    return 0;
+  addToDo() {
+    const toDo = {
+      isDone: false,
+      text: this.form.value.todo
+    };
+
+    this.todoListService.create(toDo)
+      .subscribe(response => {
+        this.todoList.unshift(toDo);
+        this.toastr.success('New item has been successfully added');
+        this.spinner.hide('todoList');
+      }, (error) => this.hideSpinner(error));
   }
 
-  editToDo(id) {
+  updateToDo() {
+    const todo: ToDo = {
+      isDone: false,
+      text: this.form.value.todo,
+      id: this.toDoEditing.id
+    };
+
+    this.todoListService.update(todo)
+      .subscribe(() => {
+        this.todoList.find((item: ToDo) => {
+          if (item.id === todo.id) {
+            item.isDone = false;
+            item.text = todo.text;
+          }
+        });
+        this.isEdit = false;
+        this.toDoEditing = null;
+        this.spinner.hide('todoList');
+      }, (error) => this.hideSpinner(error));
+  }
+
+  editToDo(todo) {
     this.isEdit = true;
-    this.toDoEditing = this.toDoList.find(todo => todo.id === id);
-    this.buildForm(this.toDoEditing);
+    this.toDoEditing = todo;
+    this.buildForm(todo);
   }
 
   removeToDo(id) {
-    this.toDoList = this.toDoList.filter(todo => todo.id !== id);
+    this.spinner.show('todoList');
+    this.todoListService.remove(id)
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+        this.todoList = this.todoList.filter(todo => todo.id !== id);
+        this.toastr.success('Item has been successfully removed');
+        this.spinner.hide('todoList');
+      }, (error) => this.hideSpinner(error));
   }
 
   changeStatus(id) {
-    this.toDoList.find((todo: ToDo) => {
+    this.todoList.find((todo: ToDo) => {
       if (todo.id === id) {
         todo.isDone = !todo.isDone;
       }
     });
+  }
+
+  hideSpinner(error) {
+    this.spinner.hide('todoList');
+    this.toastr.error(error.statusText);
+  }
+
+  ngOnDestroy(): void {
   }
 }
