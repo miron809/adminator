@@ -35,6 +35,6 @@ export class TodoListService {
   }
 
   remove(id: string): Observable<void> {
-    return this.http.delete<void>(`${environment.databaseUrl}/todoList/${id}.json`);
+    return this.http.delete<void>(`${environment.databaseUrl}/todoLists/${id}.json`);
   }
 }

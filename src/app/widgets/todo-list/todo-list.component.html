@@ -14,7 +14,7 @@
           </div>
           <div class="peers actions mR-15">
             <div class="peer">
-                  <span (click)="editToDo(todo)" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
+                  <span (click)="editToDo(todo)" [ngClass]="{'disabled-edit': todo.isDone}" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
                     <i class="ti-pencil"></i>
                   </span>
             </div>

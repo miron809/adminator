@@ -30,7 +30,7 @@ export interface Chart {
 }
 
 export interface ToDo {
-  isDone: boolean;
+  isDone?: boolean;
   text: string;
   id?: string;
 }

@@ -35,3 +35,8 @@ li {
     opacity: 1;
   }
 }
+
+.disabled-edit {
+  color: grey !important;
+  pointer-events: none;
+}

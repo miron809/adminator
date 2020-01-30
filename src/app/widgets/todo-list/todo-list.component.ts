@@ -6,6 +6,8 @@ import { TodoListService } from './todo-list.service';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, throttle, throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-list',
@@ -15,6 +17,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class TodoListComponent implements OnInit, OnDestroy {
 
   todoList: ToDo[] = [];
+  changingStatus$ = new Subject();
 
   form: FormGroup;
   isEdit = false;
@@ -28,6 +31,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.spinner.show('todoList');
     this.getAllToDo();
+    this.updateStatus();
     this.buildForm();
   }
 
@@ -41,6 +45,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.todoListService.getAll()
       .pipe(untilDestroyed(this))
       .subscribe((todoList: ToDo[]) => {
+        console.log(todoList)
         this.todoList = todoList;
         this.spinner.hide('todoList');
       }, (error) => this.hideSpinner(error));
@@ -66,18 +71,22 @@ export class TodoListComponent implements OnInit, OnDestroy {
       }, (error) => this.hideSpinner(error));
   }
 
-  updateToDo() {
-    const todo: ToDo = {
-      isDone: false,
-      text: this.form.value.todo,
-      id: this.toDoEditing.id
-    };
+  updateToDo(data?) {
+    let todo: ToDo;
+
+    if (data) {
+      todo = data;
+    } else {
+      todo = {
+        text: this.form.value.todo,
+        id: this.toDoEditing.id
+      };
+    }
 
     this.todoListService.update(todo)
       .subscribe(() => {
         this.todoList.find((item: ToDo) => {
           if (item.id === todo.id) {
-            item.isDone = false;
             item.text = todo.text;
           }
         });
@@ -110,11 +119,23 @@ export class TodoListComponent implements OnInit, OnDestroy {
         todo.isDone = !todo.isDone;
       }
     });
+    this.changingStatus$.next(id);
+  }
+
+  updateStatus() {
+    this.changingStatus$
+      .pipe(untilDestroyed(this))
+      .subscribe((id) => {
+        const todo = this.todoList.find(item => item.id === id);
+        this.updateToDo(todo);
+      });
   }
 
   hideSpinner(error) {
     this.spinner.hide('todoList');
-    this.toastr.error(error.statusText);
+    if (error.statusText) {
+      this.toastr.error(error.statusText);
+    }
   }
 
   ngOnDestroy(): void {
