@@ -8,28 +8,28 @@ import { animate, keyframes, style, transition, trigger } from '@angular/animati
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
-  animations: [
-    trigger('todo', [
-      transition(':enter', [
-        animate('1s', keyframes([
-          style({
-            transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)',
-            opacity: '0'}),
-          style({
-            transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)',
-            opacity: '.5'}),
-          style({
-            transform: 'perspective(400px) rotate3d(1, 0, 0, 10deg)',
-            opacity: '1'}),
-          style({
-            transform: 'perspective(400px) rotate3d(1, 0, 0, -5deg)'}),
-          style({
-            transform: 'perspective(400px)'}),
-        ])),
-      ]),
-
-    ])
-  ]
+  // animations: [
+  //   trigger('todo', [
+  //     transition(':enter', [
+  //       animate('1s', keyframes([
+  //         style({
+  //           transform: 'perspective(400px) rotate3d(1, 0, 0, 90deg)',
+  //           opacity: '0'}),
+  //         style({
+  //           transform: 'perspective(400px) rotate3d(1, 0, 0, -20deg)',
+  //           opacity: '.5'}),
+  //         style({
+  //           transform: 'perspective(400px) rotate3d(1, 0, 0, 10deg)',
+  //           opacity: '1'}),
+  //         style({
+  //           transform: 'perspective(400px) rotate3d(1, 0, 0, -5deg)'}),
+  //         style({
+  //           transform: 'perspective(400px)'}),
+  //       ])),
+  //     ]),
+  //
+  //   ])
+  // ]
 })
 export class TodoListComponent implements OnInit {
 

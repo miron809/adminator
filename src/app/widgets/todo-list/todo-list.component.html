@@ -4,8 +4,8 @@
       <h6 class="lh-1">Todo List</h6>
     </div>
     <div class="layer w-100">
-      <ul class="list-task list-group" data-role="tasklist">
-        <li [@todo] *ngFor="let toDo of toDoList" class="list-group-item bdw-0" data-role="task">
+      <ul *ngIf="toDoList.length; else empty" class="list-task list-group" data-role="tasklist">
+        <li *ngFor="let toDo of toDoList" class="list-group-item bdw-0" data-role="task">
           <div [ngClass]="{'is-done': toDo.isDone}" class="checkbox checkbox-circle checkbox-info peers ai-c">
             <input (change)="changeStatus(toDo.id)" type="checkbox" [checked]="toDo.isDone" id="inputCall{{toDo.id}}" name="inputCheckboxesCall" class="peer">
             <label for="inputCall{{toDo.id}}" class=" peers peer-greed js-sb ai-c">
@@ -26,6 +26,9 @@
           </div>
         </li>
       </ul>
+      <ng-template #empty>
+        <h4 class="mb-4 mt-2 text-center">You don't have any tasks, you can add one using the form below</h4>
+      </ng-template>
       <form [formGroup]="form" (ngSubmit)="addToDo()" class="d-flex mt-2 flex-row align-items-start">
         <input formControlName="toDo" class="form-control mr-2" type="text" placeholder="what else?">
         <button [disabled]="form.invalid" type="submit" class="btn btn-success">{{isEdit ? 'Save' : 'Add new'}}</button>
