@@ -45,7 +45,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.todoListService.getAll()
       .pipe(untilDestroyed(this))
       .subscribe((todoList: ToDo[]) => {
-        console.log(todoList)
         this.todoList = todoList;
         this.spinner.hide('todoList');
       }, (error) => this.hideSpinner(error));
